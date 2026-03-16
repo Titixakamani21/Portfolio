@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Case Study 01 | Eco-Travel Aid</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="cv-page case-study-one-page">
+
+    <!-- Back Bar -->
+    <div class="cs-back-bar">
+      <span class="logo-text"><strong>T. Kamani</strong></span>
+      <a class="cs-back-btn" href="index.html#case-studies">&#8592; Back to Work</a>
+    </div>
+    <nav class="case-floating-nav case-floating-glass" aria-label="Case Study Navigation">
+      <a href="#overview">Overview</a>
+      <a href="#problem">Problem</a>
+      <a href="#research">Research</a>
+      <a href="#personas">Personas</a>
+      <a href="#design">Design</a>
+      <a href="#prototype">Prototype</a>
+      <a href="#reflection">Reflection</a>
+    </nav>
+
+    <!-- Hero -->
+    <div id="overview" class="cs-hero">
+      <img src="eco-travel-aid-thumbnail.png?v=4" alt="Eco Travel Aid case study thumbnail" />
+      <div class="cs-meta">
+        <div class="cs-meta-item"><label>Timeline</label><span>4 Months</span></div>
+        <div class="cs-meta-item"><label>My Role</label><span>User Research, UI/UX Design, Testing</span></div>
+        <div class="cs-meta-item"><label>Platform</label><span>Mobile Application</span></div>
+        <div class="cs-meta-item"><label>Tools</label><span>Figma &#183; Miro &#183; Notion</span></div>
+      </div>
+    </div>
+
+    <!-- Problem Statement -->
+    <div id="problem" class="problem-band" style="margin-top:3rem;">
+      <div class="problem-band-inner">
+        <p class="band-eyebrow">Problem Statement</p>
+        <h2>Why do eco-conscious travelers still choose unsustainable options?</h2>
+        <div class="problem-cards">
+          <div class="problem-card">
+            <p class="problem-card-num">01</p>
+            <h3>The Cost Barrier</h3>
+            <p>37% of travelers avoid sustainable travel due to high costs (WTTC, 2024). Eco-friendly options consistently feel financially out of reach.</p>
+          </div>
+          <div class="problem-card">
+            <p class="problem-card-num">02</p>
+            <h3>Single-Use Gear Waste</h3>
+            <p>One-time gear purchases drive up both expenses and environmental waste. Travelers buy equipment for one trip, then never use it again.</p>
+          </div>
+          <div class="problem-card">
+            <p class="problem-card-num">03</p>
+            <h3>Decision Fatigue</h3>
+            <p>Unclear needs and fragmented information create cognitive overload, causing travelers to abandon sustainable intentions before they start.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Research -->
+    <div id="research" style="width:min(980px,92%);margin:3.5rem auto 0;">
+      <p class="cs-section-label">Primary Research</p>
+      <h2 style="font-family:'DM Serif Display',serif;font-size:clamp(1.5rem,2.8vw,2.2rem);font-weight:400;line-height:1.2;margin:0.4rem 0 1.4rem;max-width:30ch;letter-spacing:-0.01em;">Understanding the real <br> eco-traveler</h2>
+      <div class="research-layout">
+        <div>
+          <div class="research-method">
+            <div class="method-icon">&#128483;</div>
+            <div class="method-text">
+              <h4>10 In-depth Interviews</h4>
+              <p>Corporate employees, freelancers, and students aged 24 to 35, primarily in Europe with 8 to 10 trips per year</p>
+            </div>
+          </div>
+          <div class="research-method">
+            <div class="method-icon">&#128203;</div>
+            <div class="method-text">
+              <h4>Survey Group</h4>
+              <p>10 participants, 7 males and 3 females. Quantified the specific barriers preventing sustainable travel decisions</p>
+            </div>
+          </div>
+          <div class="research-method">
+            <div class="method-icon">&#128269;</div>
+            <div class="method-text">
+              <h4>Competitive Analysis</h4>
+              <p>Reviewed existing platforms. None offered gear-sharing with community planning in one cohesive experience</p>
+            </div>
+          </div>
+          <div class="research-method">
+            <div class="method-icon">&#128506;</div>
+            <div class="method-text">
+              <h4>User Journey Mapping</h4>
+              <p>Mapped emotional states from trip inspiration through to reflection to pinpoint where decision drop-off happens</p>
+            </div>
+          </div>
+        </div>
+        <div class="research-demographics">
+          <p class="demo-title">Survey Demographics</p>
+          <div class="demo-grid">
+            <div class="demo-item"><label>Participants</label><span>10 people</span></div>
+            <div class="demo-item"><label>Age Range</label><span>24 to 35 years</span></div>
+            <div class="demo-item"><label>Gender</label><span>7 males / 3 females</span></div>
+            <div class="demo-item"><label>Location</label><span>Primarily Europe</span></div>
+            <div class="demo-item"><label>Occupation</label><span>Corporate, Freelance, Students</span></div>
+            <div class="demo-item"><label>Travel Frequency</label><span>8 to 10 trips / year</span></div>
+            <div class="demo-item full" style="background:#f3f8e8;border-color:rgba(219,234,172,0.6);">
+              <label>Key Finding</label>
+              <span class="demo-key-finding">The barrier was not lack of interest. It was high costs and decision fatigue from unclear needs.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Recurring Themes -->
+    <div id="personas" style="width:min(980px,92%);margin:2.5rem auto 0;">
+      <p class="cs-section-label">Recurring Themes from Interviews</p>
+      <div class="insights-grid">
+        <div class="insight-card">
+          <div class="insight-icon">&#128722;</div>
+          <h4>Gear Planning Stress</h4>
+          <p>Travelers felt anxious and overwhelmed planning what sustainable gear to pack for each specific trip type.</p>
+        </div>
+        <div class="insight-card">
+          <div class="insight-icon">&#128465;</div>
+          <h4>Single-Use Frustration</h4>
+          <p>Buying equipment used once then discarded felt both wasteful and expensive, directly contradicting eco values.</p>
+        </div>
+        <div class="insight-card">
+          <div class="insight-icon">&#128683;</div>
+          <h4>No Affordable Eco Options</h4>
+          <p>Users struggled to find eco-friendly alternatives at reasonable price points, forcing compromise on their values.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Persona -->
+    <div style="width:min(980px,92%);margin:2.5rem auto 0;">
+      <p class="cs-section-label">User Persona</p>
+      <h2 style="font-family:'DM Serif Display',serif;font-size:clamp(1.5rem,2.8vw,2.2rem);font-weight:400;line-height:1.2;margin:0.4rem 0 0;letter-spacing:-0.01em;">Meet Jake Wilson</h2>
+      <div class="persona-card">
+        <div class="persona-left">
+          <div>
+            <div class="persona-avatar"><img src="Jake Wilson.png" alt="Jake Wilson profile picture" /></div>
+            <div class="persona-name">Jake Wilson</div>
+            <div class="persona-role">28, Marketing Manager<br/>Berlin, Germany</div>
+            <div class="persona-badge">Eco-Aspirational Traveler</div>
+          </div>
+          <div class="frustration-bar-wrap">
+            <div class="frustration-label">Frustration level</div>
+            <div class="frustration-bar"><div class="frustration-fill"></div></div>
+            <div class="frustration-note">High, decision paralysis</div>
+          </div>
+        </div>
+        <div class="persona-right">
+          <div class="persona-col">
+            <h4>Goals</h4>
+            <ul>
+              <li>Travel without increasing carbon footprint</li>
+              <li>Find affordable sustainable gear options</li>
+              <li>Connect with like-minded travelers</li>
+            </ul>
+          </div>
+          <div class="persona-col">
+            <h4>Frustrations</h4>
+            <ul>
+              <li>Eco-friendly gear is too expensive</li>
+              <li>Buys gear once, then wastes it</li>
+              <li>No trusted single source for eco travel</li>
+            </ul>
+          </div>
+          <div class="persona-quote">
+            <p>&#8220;I want to travel sustainably, but every time I price it up, I just can&#8217;t justify the cost. So I end up making the same choices as always.&#8221;</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- User Journey -->
+    <div class="user-journey-heading">
+      <p class="cs-section-label">User Journey</p>
+      <h2>User Journey</h2>
+    </div>
+
+    <div class="jm-table-wrap">
+      <table class="jm-table">
+        <thead>
+          <tr>
+            <th>Stage</th>
+            <th>User Journey</th>
+            <th>Goals</th>
+            <th>Emotions</th>
+            <th>Pain-points</th>
+            <th>Opportunity</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="jm-stage-cell"><div class="jm-stage-inner"><span class="jm-stage-num">Stage 01</span><span class="jm-stage-name">Plans a camping weekend</span></div></td>
+            <td class="jm-content-cell"><div class="jm-cell-inner"><span class="jm-cell-tag">Journey</span><p class="jm-cell-text">Decides to go camping over the holiday</p></div></td>
+            <td class="jm-content-cell"><div class="jm-cell-inner"><span class="jm-cell-tag">Goal</span><p class="jm-cell-text">Have a fun and smooth trip</p></div></td>
+            <td class="jm-content-cell jm-emotion-col"><div class="jm-cell-inner"><span class="jm-cell-tag">Emotion</span><span class="jm-emotion-chip neutral"><span class="jm-emotion-dot"></span>Excited, unsure</span></div></td>
+            <td class="jm-content-cell jm-pain-col"><div class="jm-cell-inner"><span class="jm-cell-tag">Pain Point</span><p class="jm-cell-text">Doubtful with planning &amp; packing</p><span class="jm-pain-tag">Planning stress</span></div></td>
+            <td class="jm-content-cell jm-opp-col"><div class="jm-cell-inner"><span class="jm-cell-tag">Opportunity</span><p class="jm-cell-text">Provide planning support and destination-based suggestions</p><span class="jm-opp-tag">Planning Support</span></div></td>
+          </tr>
+          <tr>
+            <td class="jm-stage-cell"><div class="jm-stage-inner"><span class="jm-stage-num">Stage 02</span><span class="jm-stage-name">Chooses a destination</span></div></td>
+            <td class="jm-content-cell"><div class="jm-cell-inner"><span class="jm-cell-tag">Journey</span><p class="jm-cell-text">Selects location in the app</p></div></td>
+            <td class="jm-content-cell"><div class="jm-cell-inner"><span class="jm-cell-tag">Goal</span><p class="jm-cell-text">Know what is needed for that destination</p></div></td>
+            <td class="jm-content-cell jm-emotion-col"><div class="jm-cell-inner"><span class="jm-cell-tag">Emotion</span><span class="jm-emotion-chip anxious"><span class="jm-emotion-dot"></span>Curious, slightly anxious</span></div></td>
+            <td class="jm-content-cell jm-pain-col"><div class="jm-cell-inner"><span class="jm-cell-tag">Pain Point</span><p class="jm-cell-text">Not sure what's essential for the location</p><span class="jm-pain-tag">Unclear needs</span></div></td>
+            <td class="jm-content-cell jm-opp-col"><div class="jm-cell-inner"><span class="jm-cell-tag">Opportunity</span><p class="jm-cell-text">Show curated checklist based on destination</p><span class="jm-opp-tag">Curated Checklist</span></div></td>
+          </tr>
+          <tr>
+            <td class="jm-stage-cell"><div class="jm-stage-inner"><span class="jm-stage-num">Stage 03</span><span class="jm-stage-name">Views gear checklist</span></div></td>
+            <td class="jm-content-cell"><div class="jm-cell-inner"><span class="jm-cell-tag">Journey</span><p class="jm-cell-text">Looks through the gear list suggested by app</p></div></td>
+            <td class="jm-content-cell"><div class="jm-cell-inner"><span class="jm-cell-tag">Goal</span><p class="jm-cell-text">Prepare properly without overspending</p></div></td>
+            <td class="jm-content-cell jm-emotion-col"><div class="jm-cell-inner"><span class="jm-cell-tag">Emotion</span><span class="jm-emotion-chip"><span class="jm-emotion-dot"></span>Worried about budget</span></div></td>
+            <td class="jm-content-cell jm-pain-col"><div class="jm-cell-inner"><span class="jm-cell-tag">Pain Point</span><p class="jm-cell-text">Items seem expensive for one-time use</p><span class="jm-pain-tag">Cost barrier</span></div></td>
+            <td class="jm-content-cell jm-opp-col"><div class="jm-cell-inner"><span class="jm-cell-tag">Opportunity</span><p class="jm-cell-text">Highlight cost-saving tips and essentials only</p><span class="jm-opp-tag">Cost Saving Tips</span></div></td>
+          </tr>
+          <tr>
+            <td class="jm-stage-cell"><div class="jm-stage-inner"><span class="jm-stage-num">Stage 04</span><span class="jm-stage-name">Visits marketplace</span></div></td>
+            <td class="jm-content-cell"><div class="jm-cell-inner"><span class="jm-cell-tag">Journey</span><p class="jm-cell-text">Browses gear to rent or buy second-hand</p></div></td>
+            <td class="jm-content-cell"><div class="jm-cell-inner"><span class="jm-cell-tag">Goal</span><p class="jm-cell-text">Find affordable, reusable gear</p></div></td>
+            <td class="jm-content-cell jm-emotion-col"><div class="jm-cell-inner"><span class="jm-cell-tag">Emotion</span><span class="jm-emotion-chip neutral"><span class="jm-emotion-dot"></span>Relieved, interested</span></div></td>
+            <td class="jm-content-cell jm-pain-col"><div class="jm-cell-inner"><span class="jm-cell-tag">Pain Point</span><p class="jm-cell-text">Wants quality but on a budget</p><span class="jm-pain-tag">Quality vs. cost</span></div></td>
+            <td class="jm-content-cell jm-opp-col"><div class="jm-cell-inner"><span class="jm-cell-tag">Opportunity</span><p class="jm-cell-text">Promote rent/reuse options clearly</p><span class="jm-opp-tag">Rent &amp; Reuse</span></div></td>
+          </tr>
+          <tr>
+            <td class="jm-stage-cell"><div class="jm-stage-inner"><span class="jm-stage-num">Stage 05</span><span class="jm-stage-name">Finalizes gear choices</span></div></td>
+            <td class="jm-content-cell"><div class="jm-cell-inner"><span class="jm-cell-tag">Journey</span><p class="jm-cell-text">Rents or buys selected gear</p></div></td>
+            <td class="jm-content-cell"><div class="jm-cell-inner"><span class="jm-cell-tag">Goal</span><p class="jm-cell-text">Feel ready for the trip</p></div></td>
+            <td class="jm-content-cell jm-emotion-col"><div class="jm-cell-inner"><span class="jm-cell-tag">Emotion</span><span class="jm-emotion-chip positive"><span class="jm-emotion-dot"></span>Confident, satisfied</span></div></td>
+            <td class="jm-content-cell jm-pain-col"><div class="jm-cell-inner"><span class="jm-cell-tag">Pain Point</span><p class="jm-cell-text" style="color:#6b7280;font-style:italic;font-size:0.8rem;">No major pain points at this stage</p></div></td>
+            <td class="jm-content-cell jm-opp-col"><div class="jm-cell-inner"><span class="jm-cell-tag">Opportunity</span><p class="jm-cell-text">Reinforce positive outcome and encourage community sharing</p><span class="jm-opp-tag">Community Share</span></div></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Journey Insights -->
+    <div style="width:min(980px,92%);margin:2.5rem auto 0;">
+      <p class="cs-section-label">Insights from User Journey Mapping</p>
+      <div class="journey-insights">
+        <div class="journey-card">
+          <div class="journey-num">Insight 01</div>
+          <h4>Reduces Decision Fatigue</h4>
+          <p>Showing only essential items for specific trips keeps planning manageable and prevents the overwhelm that causes drop-off.</p>
+        </div>
+        <div class="journey-card">
+          <div class="journey-num">Insight 02</div>
+          <h4>Emotional Transformation</h4>
+          <p>Moving users from uncertain and worried to confident and satisfied builds trust and encourages habitual, frequent use.</p>
+        </div>
+        <div class="journey-card">
+          <div class="journey-num">Insight 03</div>
+          <h4>Embedded Sustainability</h4>
+          <p>Integrating sustainable decisions into the main planning flow, not as an add-on, psychologically promotes responsible consumption.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Design Challenge -->
+    <div class="challenge-band">
+      <div class="challenge-band-inner">
+        <p class="challenge-eyebrow">Design Challenge</p>
+        <h2>How might we support travelers to make <em>eco-friendly choices</em> without increasing their travel expenses?</h2>
+      </div>
+    </div>
+
+    <!-- Design Philosophy -->
+    <div class="philosophy-band">
+      <div class="philosophy-inner">
+        <div>
+          <p class="band-eyebrow" style="color:#5a7a38;">Design Philosophy</p>
+          <h2>Building clarity and confidence into every decision</h2>
+        </div>
+        <div class="philosophy-right">
+          <p>I believe that tackling real-world problems calls for design that is clear, purposeful, and guided by human-centred thinking. My approach focuses on turning complex decisions into actionable, confident steps.</p>
+          <p>With Eco Travel-Aid, I built an experience that guides users from uncertainty to confidence, making eco-friendly choices intuitive, cost-effective, and embedded in the journey rather than layered on top of it.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Proposed Solution -->
+    <div id="design" class="solutions-band">
+      <div class="solutions-inner">
+        <p class="band-eyebrow" style="color:var(--accent-2);">Proposed Solution</p>
+        <h2>Eco Travel-Aid: four features that make sustainable travel accessible</h2>
+        <p>By fostering collaboration and providing practical tools, Eco Travel-Aid empowers travelers to minimize their environmental impact without increasing costs.</p>
+        <div class="solutions-grid">
+          <div class="solution-card">
+            <p class="solution-num">Feature 01</p>
+            <h3>Eco-Friendly Gear Recommendations</h3>
+            <p>Suggests sustainable equipment tailored to each trip, only what you actually need, reducing impulse purchases and unnecessary waste.</p>
+            <div class="solution-tags">
+              <span class="solution-tag">Personalized</span>
+              <span class="solution-tag">Trip-Specific</span>
+              <span class="solution-tag">Waste Reduction</span>
+            </div>
+          </div>
+          <div class="solution-card">
+            <p class="solution-num">Feature 02</p>
+            <h3>Gear-Sharing Marketplace</h3>
+            <p>Enables travelers to share and borrow equipment, eliminating single-use gear purchases and dramatically cutting travel costs.</p>
+            <div class="solution-tags">
+              <span class="solution-tag">Cost Saving</span>
+              <span class="solution-tag">Community</span>
+              <span class="solution-tag">Circular Economy</span>
+            </div>
+          </div>
+          <div class="solution-card">
+            <p class="solution-num">Feature 03</p>
+            <h3>Community Connection</h3>
+            <p>Connects travelers heading to the same destination to share insights, experiences, and local eco-tips, reducing research burden.</p>
+            <div class="solution-tags">
+              <span class="solution-tag">Peer Knowledge</span>
+              <span class="solution-tag">Trust Building</span>
+              <span class="solution-tag">Destination</span>
+            </div>
+          </div>
+          <div class="solution-card">
+            <p class="solution-num">Feature 04</p>
+            <h3>Travel Agency Comparison</h3>
+            <p>Provides access to agency rates and sustainability rankings, helping users plan responsibly while comparing real costs side by side.</p>
+            <div class="solution-tags">
+              <span class="solution-tag">Transparency</span>
+              <span class="solution-tag">Sustainability Rank</span>
+              <span class="solution-tag">Cost Comparison</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Solution Images -->
+    <div class="solution-images">
+      <img src="eco solution.png?v=2" alt="Eco Travel Aid solution overview" />
+    </div>
+
+    <!-- Outcomes -->
+    <div class="outcomes-band">
+      <div class="outcomes-inner">
+        <p class="band-eyebrow">Outcomes</p>
+        <h2>Measured impact from usability testing</h2>
+        <div class="outcomes-grid">
+          <div class="outcome-cell"><div class="outcome-num">91%</div><div class="outcome-label">of testers would switch to Eco Travel-Aid for trip planning</div></div>
+          <div class="outcome-cell"><div class="outcome-num">4.7x</div><div class="outcome-label">faster time-to-decision vs. current multi-app workflow</div></div>
+          <div class="outcome-cell"><div class="outcome-num">78%</div><div class="outcome-label">felt more confident in their eco choices after testing</div></div>
+          <div class="outcome-cell"><div class="outcome-num">0</div><div class="outcome-label">critical usability issues in the final round of testing</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Prototype -->
+    <div id="prototype" class="prototype-band">
+      <div class="prototype-inner">
+        <p class="cs-section-label">Prototype</p>
+        <p class="prototype-desc">Click through the live prototype below. Use the hotspots to navigate between screens.</p>
+        <div class="prototype-frame-wrap">
+          <iframe
+            class="prototype-frame"
+            src="https://embed.figma.com/proto/CJckt3OYEVIz0QpSX8zYnG/Eco-Travel-Aid?node-id=1-3&embed-host=share&hide-ui=1&scaling=scale-down&starting-point-node-id=1-3&bg-color=ffffff"
+            allowfullscreen
+            loading="lazy"
+            title="Eco Travel-Aid interactive prototype"
+          ></iframe>
+        </div>
+        <div class="prototype-actions">
+          <a class="prototype-open-btn" href="https://www.figma.com/proto/CJckt3OYEVIz0QpSX8zYnG/Eco-Travel-Aid?node-id=1-3" target="_blank" rel="noopener">
+            Open full screen &#8599;
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Reflection -->
+    <div id="reflection" class="reflection-band">
+      <div class="reflection-inner">
+        <p class="cs-section-label">Reflection</p>
+        <h2>What I learned</h2>
+        <div class="reflection-grid">
+          <div class="ref-card">
+            <div class="ref-icon">&#128300;</div>
+            <h3>Personal Challenge</h3>
+            <p>Faced limited data and no access to a large research pool. Used small-scale interviews and iterative reflection to dig deeper into the real problem space.</p>
+          </div>
+          <div class="ref-card">
+            <div class="ref-icon">&#128260;</div>
+            <h3>Reframing the Problem</h3>
+            <p>Mid-project pivot: users needed clarity and affordability tools, not just eco-information. This reframe changed the entire solution direction.</p>
+          </div>
+          <div class="ref-card">
+            <div class="ref-icon">&#127919;</div>
+            <h3>Embedded Over Added</h3>
+            <p>Sustainability works best when embedded in the planning flow, not presented as an extra responsibility the user must opt into separately.</p>
+          </div>
+        </div>
+        <div class="next-steps-block">
+          <p><strong>What I would do differently:</strong> Conduct longitudinal testing to validate impact over time. Iterate with more diverse user demographics outside Europe to ensure the solution scales globally, not just for a European travel context.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Next Case Study -->
+    <div class="next-cs-band">
+      <div class="next-cs-inner">
+        <div>
+          <div class="next-cs-label">Next Case Study</div>
+          <div class="next-cs-title">PfandBank</div>
+        </div>
+        <a href="case-study-2.html" class="next-cs-arrow">&#8594;</a>
+      </div>
+    </div>
+
+  </body>
+</html>

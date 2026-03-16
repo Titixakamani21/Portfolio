@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Life — About Me | Titixa Kamani</title>
+  <meta name="description" content="About Titixa Kamani — Product Designer with Full-Stack Background" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Manrope:wght@300;400;500;600;700&family=Silkscreen:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #f5f2ed;
+      --text: #1a1410;
+      --text-secondary: #5c4f45;
+      --muted: #8a7e75;
+      --accent: #1b2a4a;
+      --accent-light: #c4a882;
+      --line: rgba(26, 20, 16, 0.08);
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { background: var(--bg); overscroll-behavior: none; }
+    html, body { overscroll-behavior: none; scroll-behavior: smooth; }
+    body { min-height: 100vh; overflow-x: hidden; font-family: "Manrope", sans-serif; color: var(--text); background: var(--bg); }
+
+    .grain {
+      position: fixed; inset: 0; pointer-events: none; z-index: 9999; opacity: 0.028;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 200px;
+    }
+
+    .page-wrap { width: min(900px, 92%); margin: 0 auto; padding: 2rem 0 5rem; }
+
+    .back-bar {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 0.8rem 0; margin-bottom: 2rem;
+      animation: fadeIn 0.6s var(--ease-out) both;
+    }
+
+    .back-link {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      text-decoration: none; color: var(--muted); font-size: 0.88rem; font-weight: 600;
+      transition: color 0.3s ease;
+    }
+    .back-link:hover { color: var(--text); }
+    .back-link svg { width: 18px; height: 18px; }
+
+    .back-name {
+      font-family: "Playfair Display", serif;
+      font-size: 1.1rem; font-weight: 500; color: var(--text); text-decoration: none;
+    }
+
+    .life-folder-label {
+      font-family: "Silkscreen", monospace;
+      font-size: clamp(1rem, 2vw, 1.5rem);
+      color: var(--muted);
+      margin-bottom: 0.5rem;
+      letter-spacing: 0.04em;
+      animation: fadeSlideUp 0.7s var(--ease-out) both;
+      animation-delay: 0.05s;
+    }
+
+    .life-heading {
+      margin-bottom: 3rem;
+      animation: fadeSlideUp 0.8s var(--ease-out) both;
+      animation-delay: 0.1s;
+    }
+
+    .life-heading h1 {
+      font-family: "Playfair Display", serif;
+      font-size: clamp(2.4rem, 5vw, 4rem);
+      font-weight: 500; color: var(--accent); line-height: 1.05; max-width: 16ch;
+    }
+
+    .life-intro {
+      font-size: 1.1rem; color: var(--text-secondary); line-height: 1.7;
+      max-width: 55ch; margin-top: 1.2rem;
+      animation: fadeSlideUp 0.8s var(--ease-out) both; animation-delay: 0.2s;
+    }
+
+    .life-section {
+      margin-top: 3.5rem;
+      animation: fadeSlideUp 0.7s var(--ease-out) both;
+    }
+    .life-section:nth-of-type(1) { animation-delay: 0.3s; }
+    .life-section:nth-of-type(2) { animation-delay: 0.45s; }
+
+    .section-pill {
+      display: inline-block; font-family: "Manrope", sans-serif;
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--accent); background: rgba(27,42,74,0.06);
+      padding: 0.35rem 1rem; border-radius: 100px; margin-bottom: 1.4rem;
+    }
+
+    .life-entry {
+      display: grid; grid-template-columns: 1fr auto; gap: 1rem; align-items: center;
+      padding: 1.4rem 0; border-bottom: 1px solid var(--line);
+      transition: padding-left 0.4s var(--ease-out);
+    }
+    .life-entry:hover { padding-left: 0.6rem; }
+
+    .entry-company {
+      font-size: 0.74rem; letter-spacing: 0.1em; font-weight: 700;
+      text-transform: uppercase; color: var(--accent-light); margin-bottom: 0.2rem;
+    }
+
+    .entry-role {
+      font-family: "Playfair Display", serif;
+      font-size: clamp(1.3rem, 2.5vw, 1.9rem);
+      font-weight: 500; color: var(--accent); transition: color 0.3s ease;
+    }
+    .life-entry:hover .entry-role { color: var(--text); }
+
+    .entry-date {
+      font-family: "Manrope", sans-serif; color: var(--muted);
+      font-weight: 500; font-size: clamp(0.85rem, 1.4vw, 1.2rem);
+    }
+
+    .life-note {
+      margin-top: 3rem; padding: 1.8rem;
+      background: rgba(27,42,74,0.03); border-radius: 14px; border: 1px solid var(--line);
+      animation: fadeSlideUp 0.7s var(--ease-out) both; animation-delay: 0.6s;
+    }
+    .life-note h3 { font-family: "Caveat", cursive; font-size: 1.5rem; color: var(--accent); margin-bottom: 0.5rem; }
+    .life-note p { font-size: 0.95rem; color: var(--text-secondary); line-height: 1.65; }
+
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes fadeSlideUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+
+    @media (max-width: 600px) { .life-entry { grid-template-columns: 1fr; gap: 0.3rem; } }
+  </style>
+</head>
+<body>
+  <div class="grain" aria-hidden="true"></div>
+
+  <div class="page-wrap">
+    <div class="back-bar">
+      <a href="index.html" class="back-link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><polyline points="12 19 5 12 12 5"/></svg>
+        Back to Desktop
+      </a>
+      <a href="index.html" class="back-name">Titixa Kamani</a>
+    </div>
+
+
+    <div class="life-heading">
+      <h1>I bridge design and development</h1>
+      <p class="life-intro">
+        Designing and building products end-to-end. CS background, QA experience, UX education, and full-stack skills. I care about the <em>why</em> behind design decisions — not just what looks pretty.
+      </p>
+    </div>
+
+    <div class="life-section">
+      <div class="section-pill">Work Experience</div>
+      <article class="life-entry">
+        <div>
+          <p class="entry-company">Fressnapf</p>
+          <h3 class="entry-role">Software Test Developer</h3>
+        </div>
+        <p class="entry-date">Present</p>
+      </article>
+      <article class="life-entry">
+        <div>
+          <p class="entry-company">Crest Data Systems</p>
+          <h3 class="entry-role">Quality Assurance Engineer</h3>
+        </div>
+        <p class="entry-date">2022 — 2023</p>
+      </article>
+    </div>
+
+    <div class="life-section">
+      <div class="section-pill">Education</div>
+      <article class="life-entry">
+        <div>
+          <p class="entry-company">Masters</p>
+          <h3 class="entry-role">Usability Engineering</h3>
+        </div>
+        <p class="entry-date">2017 — 2020</p>
+      </article>
+      <article class="life-entry">
+        <div>
+          <p class="entry-company">Bachelors</p>
+          <h3 class="entry-role">Computer Science</h3>
+        </div>
+        <p class="entry-date">2016 — 2017</p>
+      </article>
+    </div>
+
+    <div class="life-note">
+      <h3>A little more about me...</h3>
+      <p>
+        When I'm not designing or debugging, you'll find me exploring new cities, obsessing over good typography, or trying to convince myself that one more coffee won't hurt. I believe the best digital experiences feel invisible — they just work, and make people's lives a tiny bit better.
+      </p>
+    </div>
+  </div>
+</body>
+</html>

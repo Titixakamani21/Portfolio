@@ -1,0 +1,1046 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Case Study 02 | PfandBank</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+
+    body {
+      --pb-deep: #081e30;
+      --pb-mid: #0a3f5c;
+      --pb-core: #0d7fb3;
+      --pb-bright: #36b0e8;
+      --pb-light: #82d8ff;
+      --pb-pale: #dff3fd;
+      --pb-ghost: #f0faff;
+      --pb-white: #ffffff;
+      --pb-ink: #0a2034;
+      --pb-ink-mid: #2a4a5e;
+      --pb-ink-muted: #4a6878;
+      --pb-glass: rgba(255,255,255,0.55);
+      --pb-glass-border: rgba(130,216,255,0.18);
+      --pb-glass-blur: 18px;
+      --pb-radius: 16px;
+      --pb-ease: cubic-bezier(0.22,1,0.36,1);
+      --pb-font-d: 'DM Serif Display', serif;
+      --pb-font-h: 'Satoshi', sans-serif;
+      --pb-font-b: 'Inter', sans-serif;
+      background: var(--pb-white);
+      color: var(--pb-ink);
+      font-family: var(--pb-font-b);
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    .pb-progress {
+      position: fixed; top: 0; left: 0; height: 3px; width: 0%;
+      background: linear-gradient(90deg, var(--pb-core), var(--pb-light));
+      z-index: 200; transition: width 0.08s linear;
+    }
+
+    .pb-topbar {
+      position: sticky; top: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 0.85rem clamp(1rem,5vw,3rem);
+      background: rgba(255,255,255,0.88);
+      backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+      transition: box-shadow 0.3s;
+    }
+    .pb-topbar .logo-text strong {
+      font-family: var(--pb-font-h); font-size: 0.95rem; font-weight: 700;
+      color: var(--pb-ink); letter-spacing: 0.02em;
+    }
+    .pb-back-btn {
+      display: inline-flex; align-items: center; gap: 0.35rem;
+      height: 36px; padding: 0 1rem; border-radius: 999px;
+      background: var(--pb-ghost); color: var(--pb-mid);
+      font-family: var(--pb-font-h); font-size: 0.82rem; font-weight: 700;
+      text-decoration: none; transition: all 0.22s var(--pb-ease);
+    }
+    .pb-back-btn:hover { background: var(--pb-pale); transform: translateY(-1px); }
+
+    .pb-floating-nav {
+      position: fixed; top: 4.6rem; left: 50%; transform: translateX(-50%);
+      z-index: 160; display: flex; gap: 0.45rem; padding: 0.45rem;
+      background: rgba(255,255,255,0.82);
+      backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+      border-radius: 999px; box-shadow: 0 8px 28px rgba(10,40,60,0.14);
+      border: 1px solid rgba(130,216,255,0.22);
+    }
+    .pb-floating-nav a {
+      text-decoration: none; color: var(--pb-ink-mid);
+      font-family: var(--pb-font-h); font-size: 0.76rem; font-weight: 700;
+      padding: 0.42rem 0.72rem; border-radius: 999px;
+      transition: background 0.2s var(--pb-ease), color 0.2s var(--pb-ease); white-space: nowrap;
+    }
+    .pb-floating-nav a:hover { background: var(--pb-pale); color: var(--pb-core); }
+
+    .pb-reveal {
+      opacity: 0; transform: translateY(32px);
+      transition: opacity 0.72s var(--pb-ease), transform 0.72s var(--pb-ease);
+    }
+    .pb-reveal.pb-visible { opacity: 1; transform: none; }
+    .pb-reveal-d1 { transition-delay: 0.1s; }
+    .pb-reveal-d2 { transition-delay: 0.2s; }
+    .pb-reveal-d3 { transition-delay: 0.3s; }
+    .pb-reveal-d4 { transition-delay: 0.4s; }
+
+    .pb-container { max-width: 1060px; margin: 0 auto; }
+    .pb-section { padding: clamp(3rem,7vw,5rem) clamp(1rem,5vw,3rem); }
+    .pb-tinted-section { background: var(--pb-ghost); }
+    .pb-eyebrow {
+      font-family: var(--pb-font-h); font-size: 0.7rem; font-weight: 700;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--pb-core); display: block; margin-bottom: 0.5rem;
+    }
+    .pb-section-head h2 {
+      font-family: var(--pb-font-d); font-size: clamp(1.6rem,3vw,2.6rem);
+      font-weight: 400; line-height: 1.2; max-width: 36ch;
+      letter-spacing: -0.015em; color: var(--pb-ink); margin: 0;
+    }
+    .pb-center { text-align: center; align-items: center; display: flex; flex-direction: column; }
+    .pb-hint { font-size: 0.82rem; color: var(--pb-ink-muted); margin-top: 0.5rem; }
+    .pb-sub-desc { font-size: 0.92rem; color: var(--pb-ink-muted); margin-top: 0.5rem; max-width: 55ch; }
+    .pb-pill {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      background: var(--pb-glass); backdrop-filter: blur(var(--pb-glass-blur));
+      border-radius: 999px; padding: 5px 14px;
+      font-family: var(--pb-font-h); font-size: 0.72rem; font-weight: 700;
+      letter-spacing: 0.1em; color: var(--pb-core); text-transform: uppercase;
+      margin-bottom: 1.2rem;
+    }
+
+    .pb-glass-card {
+      background: var(--pb-glass);
+      backdrop-filter: blur(var(--pb-glass-blur)); -webkit-backdrop-filter: blur(var(--pb-glass-blur));
+      border-radius: var(--pb-radius); padding: 1.8rem 1.5rem;
+      border: none; box-shadow: 0 4px 30px rgba(10,40,60,0.06);
+      transition: transform 0.28s var(--pb-ease), box-shadow 0.28s var(--pb-ease);
+      position: relative; overflow: hidden;
+    }
+    .pb-glass-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(10,40,60,0.1); }
+    .pb-glass-card::after {
+      content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, var(--pb-light), var(--pb-core));
+      transform: scaleX(0); transform-origin: left; transition: transform 0.35s var(--pb-ease);
+    }
+    .pb-glass-card:hover::after { transform: scaleX(1); }
+    .pb-card-num {
+      font-family: var(--pb-font-h); font-size: 0.65rem; font-weight: 800;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--pb-bright); margin-bottom: 1rem; display: block;
+    }
+    .pb-glass-card h3 {
+      font-family: var(--pb-font-h); font-size: 1.15rem; font-weight: 700;
+      color: var(--pb-ink); margin: 0 0 0.5rem;
+    }
+    .pb-glass-card p { font-size: 0.9rem; color: var(--pb-ink-muted); line-height: 1.72; margin: 0; }
+
+    .pb-hero { padding: clamp(3rem,8vw,6rem) clamp(1rem,5vw,3rem) 0; max-width: 1060px; margin: 0 auto; }
+    .pb-hero-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; }
+    .pb-hero-text { max-width: 760px; }
+    .pb-hero-text h1 {
+      font-family: var(--pb-font-d); font-size: clamp(2rem,4vw,3.4rem);
+      font-weight: 400; line-height: 1.18; letter-spacing: -0.02em;
+      color: var(--pb-ink); margin: 0 0 1rem;
+    }
+    .pb-hero-text h1 em { font-style: italic; color: var(--pb-core); }
+    .pb-hero-sub { font-size: 1rem; color: var(--pb-ink-muted); line-height: 1.75; max-width: 44ch; margin-bottom: 2rem; }
+    .pb-meta-row {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1.5rem 1.8rem;
+      max-width: 760px;
+      align-items: start;
+    }
+    .pb-meta-chip {
+      background: transparent;
+      backdrop-filter: none;
+      border-radius: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.15rem;
+    }
+    .pb-meta-chip label {
+      font-family: var(--pb-font-h); font-size: 0.58rem; font-weight: 700;
+      letter-spacing: 0.14em; text-transform: uppercase; color: var(--pb-core);
+    }
+    .pb-meta-chip span { font-family: var(--pb-font-h); font-size: 0.85rem; font-weight: 600; color: var(--pb-ink); }
+    .pb-hero-visual { position: relative; display: flex; justify-content: center; align-items: flex-start; }
+    .pb-hero-mockup {
+      width: min(100%, 420px); aspect-ratio: auto; background: transparent;
+      border-radius: 0; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 0.75rem;
+      box-shadow: none; overflow: visible; position: relative;
+    }
+    .pb-hero-mockup img { width: auto; max-width: 100%; max-height: 520px; height: auto; object-fit: contain; display: block; }
+    .pb-hero-mockup::before { content: none; }
+    .pb-ph-icon { font-size: 2.5rem; position: relative; }
+    .pb-ph-label {
+      font-family: var(--pb-font-h); font-size: 0.8rem; font-weight: 600;
+      color: rgba(130,216,255,0.6); letter-spacing: 0.1em; text-transform: uppercase; position: relative;
+    }
+    .pb-hero-badge {
+      position: absolute; bottom: -1rem; right: -1rem;
+      background: var(--pb-glass); backdrop-filter: blur(16px);
+      border-radius: 12px; padding: 0.9rem 1.1rem;
+      box-shadow: 0 8px 28px rgba(10,40,60,0.12);
+      display: flex; flex-direction: column; gap: 2px;
+    }
+    .pb-badge-num { font-family: var(--pb-font-h); font-size: 1.6rem; font-weight: 800; color: var(--pb-core); line-height: 1; }
+    .pb-badge-text { font-size: 0.72rem; color: var(--pb-ink-muted); line-height: 1.3; }
+
+    .pb-problem-section { background: var(--pb-ghost); }
+    #personas { padding-bottom: clamp(1.2rem, 3vw, 2rem); }
+    .pb-problem-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1rem; margin-top: 2.5rem; }
+
+    .pb-two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; margin-top: 2.5rem; }
+    .pb-method { display: flex; gap: 1rem; padding: 1.2rem 0; border-bottom: 1px solid rgba(130,216,255,0.12); align-items: flex-start; }
+    .pb-method:last-child { border-bottom: none; }
+    .pb-method-icon {
+      width: 44px; height: 44px; background: var(--pb-glass); backdrop-filter: blur(12px);
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem; flex-shrink: 0;
+    }
+    .pb-method h4 { font-family: var(--pb-font-h); font-size: 0.95rem; font-weight: 700; color: var(--pb-ink); margin: 0 0 0.3rem; }
+    .pb-method p { font-size: 0.88rem; color: var(--pb-ink-muted); line-height: 1.7; margin: 0; }
+    .pb-demo-glass {
+      background: var(--pb-glass); backdrop-filter: blur(var(--pb-glass-blur));
+      border-radius: var(--pb-radius); padding: 1.6rem; box-shadow: 0 4px 24px rgba(10,40,60,0.06);
+    }
+    .pb-demo-title {
+      font-family: var(--pb-font-h); font-size: 0.78rem; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase; color: var(--pb-core); margin: 0 0 1rem;
+    }
+    .pb-demo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.65rem; }
+    .pb-demo-item { background: rgba(255,255,255,0.7); border-radius: 10px; padding: 0.75rem 0.9rem; }
+    .pb-demo-item label {
+      display: block; font-family: var(--pb-font-h); font-size: 0.62rem; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase; color: var(--pb-bright); margin-bottom: 0.2rem;
+    }
+    .pb-demo-item span { font-family: var(--pb-font-h); font-size: 0.88rem; font-weight: 600; color: var(--pb-ink); }
+    .pb-demo-full { grid-column: 1/-1; }
+
+    .pb-insights-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1rem; margin-top: 2rem; }
+    .pb-insight-card {
+      background: var(--pb-glass); backdrop-filter: blur(var(--pb-glass-blur));
+      border-radius: var(--pb-radius); overflow: hidden;
+      box-shadow: 0 4px 24px rgba(10,40,60,0.05); transition: box-shadow 0.28s var(--pb-ease);
+    }
+    .pb-insight-card:hover { box-shadow: 0 8px 32px rgba(10,40,60,0.1); }
+    .pb-insight-header {
+      padding: 1.4rem 1.4rem 1rem; cursor: pointer;
+      display: flex; justify-content: space-between; align-items: flex-start; gap: 0.75rem; user-select: none;
+    }
+    .pb-insight-icon { font-size: 1.4rem; margin-bottom: 0.5rem; display: block; }
+    .pb-insight-header h4 { font-family: var(--pb-font-h); font-size: 1rem; font-weight: 700; color: var(--pb-ink); margin: 0 0 0.3rem; }
+    .pb-insight-header p { font-size: 0.85rem; color: var(--pb-ink-muted); line-height: 1.6; margin: 0; }
+    .pb-insight-toggle {
+      width: 28px; height: 28px; border-radius: 50%; background: rgba(130,216,255,0.1);
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+      transition: transform 0.3s var(--pb-ease), background 0.3s; margin-top: 0.2rem;
+    }
+    .pb-insight-toggle { display: none; }
+    .pb-insight-card.pb-open .pb-insight-toggle { transform: rotate(45deg); background: var(--pb-pale); }
+    .pb-insight-toggle svg { width: 12px; height: 12px; stroke: var(--pb-core); stroke-width: 2.5; fill: none; }
+    .pb-insight-body { max-height: 0; overflow: hidden; transition: max-height 0.45s var(--pb-ease), padding 0.3s; padding: 0 1.4rem; }
+    .pb-insight-card.pb-open .pb-insight-body { max-height: 300px; padding: 0 1.4rem 1.4rem; }
+    .pb-insight-detail {
+      background: rgba(130,216,255,0.08); border-radius: 10px;
+      padding: 1rem 1.2rem; font-size: 0.88rem; color: var(--pb-ink-mid);
+      line-height: 1.75; border-left: 3px solid var(--pb-light);
+    }
+
+    .pb-persona {
+      display: grid; grid-template-columns: 220px 1fr;
+      border-radius: var(--pb-radius); overflow: hidden;
+      box-shadow: 0 8px 40px rgba(10,40,60,0.1); margin-top: 1.8rem;
+    }
+    .pb-persona-left {
+      background: var(--pb-deep); padding: 2rem 1.6rem;
+      display: flex; flex-direction: column; justify-content: center; align-items: center;
+      text-align: center;
+      position: relative; overflow: hidden;
+    }
+    .pb-persona-left::before {
+      content: ''; position: absolute; top: -40px; right: -40px;
+      width: 120px; height: 120px; border-radius: 50%; background: rgba(130,216,255,0.07);
+    }
+    .pb-persona-avatar {
+      width: 56px; height: 56px; background: rgba(130,216,255,0.12);
+      border: 2px solid rgba(130,216,255,0.25); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem; margin: 0 auto 1rem; position: relative;
+      overflow: hidden;
+    }
+    .pb-persona-left > div:first-child {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+    }
+    .pb-persona-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .pb-persona-name { font-family: var(--pb-font-d); font-size: 1.4rem; color: #fff; }
+    .pb-persona-role { font-size: 0.82rem; color: rgba(255,255,255,0.5); line-height: 1.5; margin-top: 0.3rem; }
+    .pb-persona-badge {
+      display: inline-block; font-family: var(--pb-font-h); font-size: 0.68rem;
+      font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--pb-light); background: rgba(130,216,255,0.1);
+      padding: 4px 10px; border-radius: 999px; margin-top: 0.8rem;
+    }
+    .pb-frustration { margin-top: 2rem; }
+    .pb-frustration-lbl {
+      font-family: var(--pb-font-h); font-size: 0.62rem; letter-spacing: 0.1em;
+      text-transform: uppercase; color: rgba(130,216,255,0.4); display: block; margin-bottom: 6px;
+    }
+    .pb-frustration-track { height: 4px; background: rgba(255,255,255,0.08); border-radius: 2px; overflow: hidden; }
+    .pb-frustration {
+      width: 100%;
+      max-width: 340px;
+    }
+    .pb-frustration-track {
+      width: 100%;
+      margin: 0 auto;
+    }
+    .pb-frustration-fill {
+      height: 100%; width: 0; border-radius: 2px;
+      background: linear-gradient(90deg, var(--pb-light), #e74c3c);
+      transition: width 1.2s var(--pb-ease);
+    }
+    .pb-frustration-note { font-size: 0.75rem; color: rgba(255,255,255,0.25); margin-top: 5px; display: block; }
+    .pb-persona-right {
+      background: #f8fbfe; padding: 2rem 1.8rem;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 1.4rem;
+    }
+    .pb-persona-col h4 {
+      font-family: var(--pb-font-h); font-size: 0.7rem; font-weight: 700;
+      letter-spacing: 0.14em; text-transform: uppercase; color: var(--pb-core); margin: 0 0 0.8rem;
+    }
+    .pb-persona-col ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.5rem; }
+    .pb-persona-col li {
+      font-size: 0.88rem; color: var(--pb-ink-mid); padding-left: 1.1rem; position: relative; line-height: 1.55;
+    }
+    .pb-persona-col li::before { content: '\2192'; position: absolute; left: 0; color: var(--pb-bright); font-size: 0.78rem; top: 0.1rem; }
+    .pb-persona-quote {
+      grid-column: 1/-1; background: #fff; border-radius: 10px;
+      padding: 1.1rem 1.3rem; border-left: 3px solid var(--pb-light);
+    }
+    .pb-persona-quote p { font-size: 0.92rem; font-style: italic; color: var(--pb-ink-muted); line-height: 1.75; margin: 0; }
+
+    .pb-jm-scroll {
+      max-width: 1060px; margin: 2rem auto 0; padding: 0 clamp(1rem,5vw,3rem);
+      overflow-x: auto; -webkit-overflow-scrolling: touch;
+    }
+    .pb-jm-table {
+      width: 100%; min-width: 820px; border-collapse: separate; border-spacing: 0;
+      border-radius: 12px; overflow: hidden; box-shadow: 0 4px 24px rgba(10,40,60,0.06);
+    }
+    .pb-jm-table thead th {
+      background: var(--pb-mid); color: rgba(130,216,255,0.85);
+      font-family: var(--pb-font-h); font-size: 0.62rem; font-weight: 700;
+      letter-spacing: 0.14em; text-transform: uppercase; padding: 14px 16px; text-align: left;
+    }
+    .pb-jm-table tbody td {
+      padding: 14px 16px; vertical-align: top; background: #fff;
+      font-size: 0.82rem; color: var(--pb-ink-mid); line-height: 1.6;
+      border-bottom: 1px solid rgba(130,216,255,0.08);
+    }
+    .pb-jm-table tbody tr:last-child td { border-bottom: none; }
+    .pb-jm-table tbody tr:hover td { background: #f7fbff; }
+    .pb-jm-stage { background: var(--pb-ghost) !important; min-width: 120px; }
+    .pb-jm-num {
+      font-family: var(--pb-font-h); font-size: 0.58rem; font-weight: 700;
+      letter-spacing: 0.15em; text-transform: uppercase; color: var(--pb-core); display: block; margin-bottom: 4px;
+    }
+    .pb-jm-name { font-family: var(--pb-font-h); font-size: 0.82rem; font-weight: 700; color: var(--pb-mid); display: block; }
+    .pb-chip {
+      display: inline-flex; align-items: center; gap: 5px; border-radius: 999px;
+      padding: 3px 10px; font-family: var(--pb-font-h); font-size: 0.72rem; font-weight: 600;
+    }
+    .pb-chip-neutral { background: #fff3cd; color: #7a5c00; }
+    .pb-chip-bad { background: #fde8d8; color: #7a3b00; }
+    .pb-chip-ok { background: #d8eaff; color: #1a4480; }
+    .pb-pain-tag {
+      display: inline-block; background: #fff0ee; border-radius: 5px;
+      padding: 2px 8px; font-family: var(--pb-font-h); font-size: 0.66rem;
+      font-weight: 600; color: #a03a2a; margin-top: 5px;
+    }
+    .pb-opp-tag {
+      display: inline-block; background: var(--pb-pale); border-radius: 5px;
+      padding: 2px 8px; font-family: var(--pb-font-h); font-size: 0.66rem;
+      font-weight: 600; color: var(--pb-mid); margin-top: 5px;
+    }
+
+    .pb-ji-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1rem; margin-top: 2rem; }
+    .pb-ji-card {
+      background: var(--pb-glass); backdrop-filter: blur(14px);
+      border-radius: var(--pb-radius); padding: 1.4rem 1.3rem;
+      box-shadow: 0 4px 20px rgba(10,40,60,0.05);
+      position: relative; overflow: hidden; transition: transform 0.28s var(--pb-ease);
+    }
+    .pb-ji-card:hover { transform: translateY(-3px); }
+    .pb-ji-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, var(--pb-light), var(--pb-core));
+    }
+    .pb-ji-num {
+      font-family: var(--pb-font-h); font-size: 0.65rem; font-weight: 700;
+      letter-spacing: 0.14em; text-transform: uppercase; color: var(--pb-bright); display: block; margin-bottom: 0.5rem;
+    }
+    .pb-ji-card h4 { font-family: var(--pb-font-h); font-size: 1rem; font-weight: 700; color: var(--pb-ink); margin: 0 0 0.5rem; }
+    .pb-ji-card p { font-size: 0.88rem; color: var(--pb-ink-muted); line-height: 1.7; margin: 0; }
+
+    .pb-challenge {
+      background: var(--pb-deep); padding: clamp(3rem,7vw,5rem) clamp(1rem,5vw,3rem);
+      text-align: center; position: relative; overflow: hidden;
+    }
+    .pb-challenge::before {
+      content: ''; position: absolute; top: -80px; left: 50%; transform: translateX(-50%);
+      width: 600px; height: 300px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(130,216,255,0.08), transparent 70%);
+    }
+    .pb-challenge .pb-eyebrow { color: rgba(130,216,255,0.55); margin-bottom: 1rem; }
+    .pb-challenge h2 {
+      font-family: var(--pb-font-d); font-size: clamp(1.5rem,3.2vw,2.6rem);
+      font-weight: 400; color: #fff; line-height: 1.38;
+      max-width: 52ch; margin: 0 auto; letter-spacing: -0.01em; position: relative;
+    }
+    .pb-challenge h2 em { color: var(--pb-light); font-style: italic; }
+
+    .pb-sol-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.9rem; margin-top: 1.5rem; }
+    .pb-sol-card {
+      background: var(--pb-glass); backdrop-filter: blur(var(--pb-glass-blur));
+      border-radius: 12px; padding: 0.9rem;
+      box-shadow: 0 4px 24px rgba(10,40,60,0.05);
+      transition: transform 0.28s var(--pb-ease), box-shadow 0.28s var(--pb-ease);
+      position: relative; overflow: hidden; display: flex; flex-direction: column;
+    }
+    .pb-sol-card:hover { transform: translateY(-4px); box-shadow: 0 12px 36px rgba(10,40,60,0.1); }
+    .pb-sol-card::before {
+      content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 100%;
+      background: linear-gradient(180deg, var(--pb-light), var(--pb-core));
+      transform: scaleY(0); transform-origin: top; transition: transform 0.35s var(--pb-ease);
+    }
+    .pb-sol-card:hover::before { transform: scaleY(1); }
+    .pb-sol-num {
+      font-family: var(--pb-font-h); font-size: 0.58rem; font-weight: 800;
+      letter-spacing: 0.18em; text-transform: uppercase; color: var(--pb-core);
+      margin-bottom: 0.26rem; display: block;
+    }
+    .pb-sol-card h3 { font-family: var(--pb-font-h); font-size: 0.95rem; font-weight: 700; color: var(--pb-ink); margin: 0 0 0.2rem; }
+    .pb-sol-card p { font-size: 0.8rem; color: var(--pb-ink-muted); line-height: 1.6; margin: 0 0 0.45rem; }
+    .pb-sol-tags { display: flex; flex-wrap: wrap; gap: 0.32rem; margin-top: auto; }
+    .pb-sol-tags span {
+      background: rgba(130,216,255,0.12); border-radius: 999px;
+      padding: 3px 9px; font-family: var(--pb-font-h); font-size: 0.62rem;
+      font-weight: 600; color: var(--pb-mid);
+    }
+    .pb-sol-img { width: 92%; border-radius: 8px; overflow: hidden; margin: 0 auto 0.65rem; }
+    .pb-sol-img img { width: 100%; height: auto; display: block; object-fit: contain; border-radius: 10px; }
+    .pb-sol-grid::after { content: ''; grid-column: 3; }
+
+    .pb-iter-list { margin-top: 2rem; }
+    .pb-iter {
+      display: grid; grid-template-columns: 110px 1fr; gap: 1.5rem;
+      padding: 1.6rem 0; border-bottom: 1px solid rgba(130,216,255,0.1); align-items: start;
+    }
+    .pb-iter:last-child { border-bottom: none; }
+    .pb-iter-label {
+      font-family: var(--pb-font-h); font-size: 0.82rem; font-weight: 800;
+      letter-spacing: 0.14em; text-transform: uppercase; color: var(--pb-core); padding-top: 0.2rem;
+    }
+    .pb-iter h4 { font-family: var(--pb-font-h); font-size: 1rem; font-weight: 700; color: var(--pb-ink); margin: 0 0 0.75rem; }
+    .pb-iter-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 0.85rem; }
+    .pb-iter-box {
+      border-radius: 10px; padding: 0.95rem 1.1rem;
+      font-size: 0.86rem; line-height: 1.68; color: var(--pb-ink-muted);
+    }
+    .pb-iter-box.pb-before { background: rgba(231,76,60,0.05); }
+    .pb-iter-box.pb-after { background: rgba(130,216,255,0.08); }
+    .pb-iter-box strong {
+      display: block; font-family: var(--pb-font-h); font-size: 0.58rem;
+      letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 0.4rem;
+    }
+    .pb-iter-box.pb-before strong { color: #c0392b; }
+    .pb-iter-box.pb-after strong { color: var(--pb-core); }
+    .pb-iter-home { grid-template-columns: 1fr; gap: 0.8rem; }
+    .pb-home-stage-board { background: transparent; border-radius: 0; padding: 0; border: none; position: relative; overflow: visible; }
+    .pb-home-stage-board::before { content: none; }
+    .pb-home-stage-grid { position: relative; display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+    .pb-home-stage-grid-2 { grid-template-columns: repeat(2, 1fr); }
+    .pb-home-stage-grid-3 { grid-template-columns: repeat(3, 1fr); }
+    .pb-home-stage-grid-single { grid-template-columns: 1fr; }
+    .pb-home-stage { display: flex; flex-direction: column; gap: 0.65rem; text-align: center; align-items: center; }
+    .pb-home-stage h5 { margin: 0; font-family: var(--pb-font-h); font-size: 0.95rem; font-weight: 700; color: var(--pb-ink); }
+    .pb-home-phone {
+      background: #ffffff; border-radius: 14px; padding: 0.45rem;
+      box-shadow: 0 8px 22px rgba(10,40,60,0.1);
+      width: min(100%, 180px); min-height: 180px; margin: 0 auto;
+    }
+    .pb-home-phone img { width: 100%; height: 100%; object-fit: contain; display: block; border-radius: 10px; }
+    .pb-home-notes {
+      margin-top: 0.95rem; background: #ffffff;
+      border: 1px solid rgba(130,216,255,0.24); border-radius: 12px;
+      box-shadow: 0 6px 16px rgba(10,40,60,0.06); padding: 1rem 1.1rem; display: grid; gap: 0.7rem;
+    }
+    .pb-home-combined {
+      background: rgba(130,216,255,0.1); border: 1px solid rgba(130,216,255,0.28);
+      border-radius: 16px; padding: 1rem;
+    }
+    .pb-home-intro { margin: 0; font-size: 0.9rem; color: var(--pb-ink-mid); line-height: 1.6; }
+    .pb-home-step { display: grid; grid-template-columns: auto 1fr; gap: 0.7rem; align-items: start; }
+    .pb-home-step-badge {
+      width: 28px; height: 28px; border-radius: 50%;
+      display: inline-flex; align-items: center; justify-content: center;
+      font-family: var(--pb-font-h); font-size: 0.72rem; font-weight: 800;
+      color: var(--pb-core); background: rgba(130,216,255,0.18); flex-shrink: 0; margin-top: 0.1rem;
+    }
+    .pb-home-step p { margin: 0; font-size: 0.9rem; color: var(--pb-ink-mid); line-height: 1.62; }
+    .pb-home-step strong { color: var(--pb-ink); font-family: var(--pb-font-h); }
+    .pb-charity-groups {
+      display: grid; grid-template-columns: 2fr 3fr; gap: 2.5rem;
+    }
+    .pb-charity-groups .pb-home-phone,
+    .pb-charity-prev .pb-home-phone {
+      width: 100%; max-width: 220px; min-height: 160px; margin: 0 auto;
+    }
+    .pb-charity-group-title {
+      margin: 0 0 0.55rem; font-family: var(--pb-font-h);
+      font-size: 1rem; font-weight: 800; color: var(--pb-ink); text-align: center;
+    }
+
+    .pb-ds-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1rem; margin-top: 2rem; }
+    .pb-ds-colors { display: flex; gap: 0.45rem; margin-top: 0.9rem; }
+    .pb-swatch {
+      width: 34px; height: 34px; border-radius: 7px;
+      cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; position: relative;
+      box-shadow: 0 8px 18px rgba(10,40,60,0.16);
+    }
+    .pb-swatch:hover { transform: scale(1.15); box-shadow: 0 12px 26px rgba(10,40,60,0.24); }
+    .pb-swatch[data-tip]::after {
+      content: attr(data-tip); position: absolute; bottom: calc(100% + 6px); left: 50%;
+      transform: translateX(-50%); background: var(--pb-ink); color: #fff;
+      font-family: var(--pb-font-h); font-size: 0.58rem; font-weight: 600;
+      white-space: nowrap; padding: 3px 7px; border-radius: 4px;
+      opacity: 0; pointer-events: none; transition: opacity 0.18s;
+    }
+    .pb-swatch:hover[data-tip]::after { opacity: 1; }
+
+    .pb-sdg-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 1rem; margin-top: 2rem; }
+    .pb-sdg-card {
+      background: var(--pb-glass); backdrop-filter: blur(14px);
+      border-radius: var(--pb-radius); padding: 1.5rem 1.3rem;
+      box-shadow: 0 4px 20px rgba(10,40,60,0.05);
+      position: relative; overflow: hidden; transition: transform 0.28s var(--pb-ease);
+    }
+    .pb-sdg-card:hover { transform: translateY(-3px); }
+    .pb-sdg-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, var(--pb-light), var(--pb-core));
+    }
+    .pb-sdg-num {
+      font-family: var(--pb-font-h); font-size: 0.65rem; font-weight: 700;
+      letter-spacing: 0.14em; text-transform: uppercase; color: var(--pb-bright);
+      display: block; margin-bottom: 0.45rem;
+    }
+    .pb-sdg-card h3 { font-family: var(--pb-font-h); font-size: 1rem; font-weight: 700; color: var(--pb-ink); margin: 0 0 0.45rem; }
+    .pb-sdg-card p { font-size: 0.86rem; color: var(--pb-ink-muted); line-height: 1.7; margin: 0; }
+
+    .pb-outcomes { background: var(--pb-mid); padding: clamp(3rem,7vw,5rem) clamp(1rem,5vw,3rem); }
+    .pb-outcomes .pb-eyebrow { color: rgba(130,216,255,0.6); }
+    .pb-outcomes .pb-section-head h2 { color: #fff; }
+    .pb-outcomes-grid {
+      display: grid; grid-template-columns: repeat(4,1fr); gap: 1px;
+      background: rgba(130,216,255,0.08); border-radius: 12px; overflow: hidden; margin-top: 1.8rem;
+    }
+    .pb-outcome {
+      background: rgba(255,255,255,0.04); padding: 1.8rem 1.4rem; transition: background 0.25s;
+      text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center;
+    }
+    .pb-outcome:hover { background: rgba(255,255,255,0.08); }
+    .pb-outcome-num {
+      font-family: var(--pb-font-h); font-size: clamp(2rem,4vw,3rem); font-weight: 800;
+      color: var(--pb-light); letter-spacing: -0.04em; line-height: 1; display: block;
+    }
+    .pb-outcome-lbl { font-size: 0.78rem; color: rgba(255,255,255,0.5); margin-top: 0.55rem; line-height: 1.45; display: block; }
+
+    .pb-proto-desc { font-size: 0.92rem; color: var(--pb-ink-muted); margin: 0.5rem 0 1.5rem; line-height: 1.65; }
+    #prototype { background: #ecf8ff; }
+    .pb-proto-wrap {
+      display: flex; justify-content: center; align-items: center;
+      background: transparent; border-radius: 0; box-shadow: none; overflow: visible;
+    }
+    .pb-proto-frame { width: min(100%, 420px); height: 860px; border: none; display: block; background: transparent; }
+    .pb-proto-actions { margin-top: 0.8rem; display: flex; justify-content: flex-end; }
+    .pb-proto-btn {
+      display: inline-flex; align-items: center; gap: 0.3rem; height: 36px; padding: 0 1rem;
+      border-radius: 999px; background: #ffffff; color: var(--pb-mid);
+      font-family: var(--pb-font-h); font-size: 0.8rem; font-weight: 700;
+      text-decoration: none; transition: all 0.22s var(--pb-ease);
+      border: 1px solid rgba(10, 40, 60, 0.08);
+    }
+    .pb-proto-btn:hover { background: var(--pb-light); color: var(--pb-deep); transform: translateY(-1px); }
+
+    .pb-ref-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1rem; margin-top: 2rem; }
+    .pb-ref-icon { font-size: 1.4rem; margin-bottom: 0.65rem; display: block; }
+    #reflection .pb-glass-card {
+      background: #ecf8ff; border: 1px solid rgba(130, 216, 255, 0.35);
+      backdrop-filter: none; -webkit-backdrop-filter: none;
+    }
+    .pb-next-steps {
+      background: var(--pb-glass); backdrop-filter: blur(14px);
+      border-left: 4px solid var(--pb-light); border-radius: 0 12px 12px 0;
+      padding: 1.4rem 1.6rem; margin-top: 1.6rem;
+    }
+    .pb-next-steps strong { color: var(--pb-core); font-family: var(--pb-font-h); }
+    .pb-next-steps p { font-size: 0.88rem; color: var(--pb-ink-muted); line-height: 1.78; margin: 0; }
+
+    .pb-next-cs { background: var(--pb-pale); padding: 2.8rem clamp(1rem,5vw,3rem); }
+    .pb-next-cs-inner {
+      max-width: 1060px; margin: 0 auto;
+      display: flex; justify-content: space-between; align-items: center; gap: 1rem;
+    }
+    .pb-next-label {
+      font-family: var(--pb-font-h); font-size: 0.65rem; font-weight: 700;
+      letter-spacing: 0.14em; text-transform: uppercase; color: var(--pb-core);
+      display: block; margin-bottom: 0.3rem;
+    }
+    .pb-next-title {
+      font-family: var(--pb-font-d); font-size: clamp(1.3rem,2.8vw,2.2rem);
+      font-weight: 400; color: var(--pb-deep); letter-spacing: -0.015em; display: block;
+    }
+    .pb-next-arrow {
+      width: 50px; height: 50px; background: var(--pb-mid); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: #fff; font-size: 1.1rem; text-decoration: none;
+      transition: transform 0.25s var(--pb-ease), background 0.25s; flex-shrink: 0;
+    }
+    .pb-next-arrow:hover { transform: scale(1.1); background: var(--pb-core); }
+
+    @media (max-width: 820px) {
+      .pb-hero-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .pb-meta-row { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .pb-hero-badge { right: 0; bottom: -0.5rem; }
+      .pb-problem-grid, .pb-insights-grid, .pb-ji-grid, .pb-ref-grid, .pb-ds-grid { grid-template-columns: 1fr; }
+      .pb-two-col { grid-template-columns: 1fr; gap: 2rem; }
+      .pb-persona { grid-template-columns: 1fr; }
+      .pb-persona-right { grid-template-columns: 1fr; }
+      .pb-sol-grid { grid-template-columns: 1fr; }
+      .pb-iter { grid-template-columns: 1fr; gap: 0.5rem; }
+      .pb-iter-cols { grid-template-columns: 1fr; }
+      .pb-home-stage-grid { grid-template-columns: 1fr; }
+      .pb-home-stage-grid-2, .pb-home-stage-grid-3 { grid-template-columns: 1fr; }
+      .pb-charity-groups { grid-template-columns: 1fr; }
+      .pb-sdg-grid { grid-template-columns: 1fr; }
+      .pb-outcomes-grid { grid-template-columns: repeat(2,1fr); }
+      .pb-next-cs-inner { flex-direction: column; align-items: flex-start; gap: 1.5rem; }
+    }
+    @media (max-width: 480px) {
+      .pb-meta-row { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem 1.1rem; }
+      .pb-meta-chip span { font-size: 0.78rem; }
+      .pb-outcomes-grid { grid-template-columns: 1fr; }
+      .pb-demo-grid { grid-template-columns: 1fr; }
+      .pb-proto-frame { width: min(100%, 360px); height: 700px; }
+      .pb-floating-nav { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="pb-progress" id="pb-progress"></div>
+
+<header class="pb-topbar">
+  <span class="logo-text"><strong>T. Kamani</strong></span>
+  <a class="pb-back-btn" href="index.html#case-studies">&#8592; Back to Work</a>
+</header>
+<nav class="pb-floating-nav" aria-label="Case Study Navigation">
+  <a href="#overview">Overview</a>
+  <a href="#problem">Problem</a>
+  <a href="#research">Research</a>
+  <a href="#personas">Personas</a>
+  <a href="#journey">Journey</a>
+  <a href="#design">Design</a>
+  <a href="#testing">Testing</a>
+  <a href="#prototype">Prototype</a>
+  <a href="#reflection">Reflection</a>
+</nav>
+
+<section id="overview" class="pb-hero">
+  <div class="pb-hero-grid">
+    <div class="pb-hero-text">
+      <span class="pb-pill pb-reveal">&#128241; Case Study 02 . Mobile App</span>
+      <h1 class="pb-reveal pb-reveal-d1">PfandBank<br/><em>Reimagining</em><br/>Bottle Returns</h1>
+      <p class="pb-hero-sub pb-reveal pb-reveal-d2">A fintech mobile app that digitises Germany's bottle deposit system, replacing lost paper receipts with seamless digital payouts, smart savings, and effortless charitable giving.</p>
+      <div class="pb-meta-row pb-reveal pb-reveal-d3">
+        <div class="pb-meta-chip"><label>Role</label><span>Lead Product Designer</span></div>
+        <div class="pb-meta-chip"><label>Timeline</label><span>3 Monthsr</span></div>
+        <div class="pb-meta-chip"><label>Tools</label><span>Figma · Notion</span></div>
+      </div>
+    </div>
+    <div class="pb-hero-visual pb-reveal pb-reveal-d2">
+      <div class="pb-hero-mockup"><img src="pfandbank thumbnail Removed.png" alt="PfandBank case study thumbnail" /></div>
+      <div class="pb-hero-badge"><span class="pb-badge-num">3+</span><span class="pb-badge-text">Rounds of<br/>user testing</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="problem" class="pb-section pb-problem-section">
+  <div class="pb-container">
+    <div class="pb-section-head pb-center pb-reveal"><span class="pb-eyebrow">Problem Statement</span><h2>Why is returning bottles in Germany still a frustrating experience?</h2></div>
+    <div class="pb-problem-grid">
+      <div class="pb-glass-card pb-reveal pb-reveal-d1"><span class="pb-card-num">01</span><h3>Lost Receipts</h3><p>Users lose paper Pfandbon receipts before they can redeem them, literally throwing away money they earned by recycling.</p></div>
+      <div class="pb-glass-card pb-reveal pb-reveal-d2"><span class="pb-card-num">02</span><h3>Long Queues &amp; Delays</h3><p>First the machine, then the cashier. This two-step process wastes time and discourages people from recycling regularly.</p></div>
+      <div class="pb-glass-card pb-reveal pb-reveal-d3"><span class="pb-card-num">03</span><h3>No Flexibility</h3><p>Cash at the counter is the only option. No digital transfer, no saving, no donating. It simply doesn't meet modern expectations.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="research" class="pb-section">
+  <div class="pb-container">
+    <div class="pb-section-head pb-reveal"><span class="pb-eyebrow">Research</span><h2>Understanding the real Pfand user</h2></div>
+    <div class="pb-two-col">
+      <div>
+        <div class="pb-method pb-reveal pb-reveal-d1"><div class="pb-method-icon">&#128203;</div><div><h4>Online Surveys</h4><p>Quantified behaviours across eco-conscious consumers, busy professionals, families, and budget shoppers.</p></div></div>
+        <div class="pb-method pb-reveal pb-reveal-d2"><div class="pb-method-icon">&#128483;&#65039;</div><div><h4>One-on-One Interviews</h4><p>Deep qualitative insights into pain points, emotional frustrations, and unmet needs around bottle returns.</p></div></div>
+        <div class="pb-method pb-reveal pb-reveal-d3"><div class="pb-method-icon">&#128101;</div><div><h4>Focus Groups</h4><p>Group discussions with 5 to 8 participants exploring digital payouts, donation options, and savings features.</p></div></div>
+        <div class="pb-method pb-reveal pb-reveal-d4"><div class="pb-method-icon">&#128269;</div><div><h4>Contextual Inquiry</h4><p>We observed real users at Pfand machines, documenting every step to uncover hidden friction in the process.</p></div></div>
+      </div>
+      <div class="pb-demo-glass pb-reveal pb-reveal-d2">
+        <p class="pb-demo-title">Research at a Glance</p>
+        <div class="pb-demo-grid">
+          <div class="pb-demo-item"><label>Methods</label><span>4 research methods</span></div>
+          <div class="pb-demo-item"><label>Focus Group</label><span>5 to 8 participants</span></div>
+          <div class="pb-demo-item"><label>User Segments</label><span>4 distinct types</span></div>
+          <div class="pb-demo-item"><label>Age Range</label><span>25 to 40 years</span></div>
+          <div class="pb-demo-item pb-demo-full"><label>Key Finding</label><span>Users didn't just want digital receipts. They wanted <strong>choice</strong> in how they used their refund.</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="pb-section pb-tinted-section">
+  <div class="pb-container">
+    <div class="pb-section-head pb-center pb-reveal"><span class="pb-eyebrow">Key Research Insights</span><h2>What users actually told us</h2></div>
+    <div class="pb-insights-grid">
+      <div class="pb-insight-card pb-reveal pb-reveal-d1" data-insight>
+        <div class="pb-insight-header"><div><span class="pb-insight-icon">&#128176;</span><h4>Flexibility Over Digitisation</h4><p>Users want choice, not just a digital receipt replacing paper.</p></div><div class="pb-insight-toggle"><svg viewBox="0 0 14 14"><line x1="7" y1="1" x2="7" y2="13"/><line x1="1" y1="7" x2="13" y2="7"/></svg></div></div>
+      </div>
+      <div class="pb-insight-card pb-reveal pb-reveal-d2" data-insight>
+        <div class="pb-insight-header"><div><span class="pb-insight-icon">&#10084;&#65039;</span><h4>High Donation Intent, No Path</h4><p>Many wanted to donate refunds but had zero infrastructure to act on it.</p></div><div class="pb-insight-toggle"><svg viewBox="0 0 14 14"><line x1="7" y1="1" x2="7" y2="13"/><line x1="1" y1="7" x2="13" y2="7"/></svg></div></div>
+      </div>
+      <div class="pb-insight-card pb-reveal pb-reveal-d3" data-insight>
+        <div class="pb-insight-header"><div><span class="pb-insight-icon">&#128205;</span><h4>Machine Location Matters</h4><p>Finding a working, nearby Pfand machine was a real barrier for users.</p></div><div class="pb-insight-toggle"><svg viewBox="0 0 14 14"><line x1="7" y1="1" x2="7" y2="13"/><line x1="1" y1="7" x2="13" y2="7"/></svg></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="personas" class="pb-section">
+  <div class="pb-container">
+    <div class="pb-section-head pb-reveal"><span class="pb-eyebrow">User Persona</span><h2>Meet Lena M&#252;ller</h2></div>
+    <div class="pb-persona pb-reveal">
+      <div class="pb-persona-left">
+        <div><div class="pb-persona-avatar"><img src="Lena Müller.png" alt="Lena Muller profile picture" /></div><div class="pb-persona-name">Lena M&#252;ller</div><div class="pb-persona-role">31, Freelance Graphic Designer<br/>Cologne, Germany</div><span class="pb-persona-badge">Eco-Conscious Recycler</span></div>
+        <div class="pb-frustration"><span class="pb-frustration-lbl">Frustration Level</span><div class="pb-frustration-track"><div class="pb-frustration-fill" id="pb-frust-fill"></div></div><span class="pb-frustration-note">lost receipts &amp; wasted time</span></div>
+      </div>
+      <div class="pb-persona-right">
+        <div class="pb-persona-col"><h4>Goals</h4><ul><li>Get refunds without cashier queues</li><li>Donate small amounts to environmental causes</li><li>Track recycling activity over time</li></ul></div>
+        <div class="pb-persona-col"><h4>Frustrations</h4><ul><li>Paper receipts always get lost</li><li>No option to transfer or save digitally</li><li>Broken machines, no way to find alternatives</li></ul></div>
+        <div class="pb-persona-quote"><p>&#8220;I recycle religiously, but I lose the receipt half the time. The system punishes you for doing the right thing.&#8221;</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="journey" class="pb-section pb-tinted-section">
+  <div class="pb-container"><div class="pb-section-head pb-reveal"><span class="pb-eyebrow">User Journey</span><h2>Mapping the emotional arc</h2></div></div>
+  <div class="pb-jm-scroll pb-reveal">
+    <table class="pb-jm-table" role="table">
+      <thead><tr><th>Stage</th><th>Action</th><th>Goal</th><th>Emotion</th><th>Pain Point</th><th>Opportunity</th></tr></thead>
+      <tbody>
+        <tr><td class="pb-jm-stage"><span class="pb-jm-num">01</span><span class="pb-jm-name">Collects bottles</span></td><td>Gathers bottles over the week</td><td>Return on next trip</td><td><span class="pb-chip pb-chip-neutral">Neutral</span></td><td>No deposit visibility <span class="pb-pain-tag">No tracking</span></td><td>Pre-visit estimate <span class="pb-opp-tag">&#8594; Estimate</span></td></tr>
+        <tr><td class="pb-jm-stage"><span class="pb-jm-num">02</span><span class="pb-jm-name">Finds machine</span></td><td>Travels to supermarket</td><td>Find working machine</td><td><span class="pb-chip pb-chip-bad">Uncertain</span></td><td>Machine broken <span class="pb-pain-tag">Availability</span></td><td>Real-time locator <span class="pb-opp-tag">&#8594; Locator</span></td></tr>
+        <tr><td class="pb-jm-stage"><span class="pb-jm-num">03</span><span class="pb-jm-name">Returns bottles</span></td><td>Feeds bottles, gets paper receipt</td><td>Get refund quickly</td><td><span class="pb-chip pb-chip-bad">Impatient</span></td><td>Long queues <span class="pb-pain-tag">Time waste</span></td><td>QR scan receipt <span class="pb-opp-tag">&#8594; Digital Receipt</span></td></tr>
+        <tr><td class="pb-jm-stage"><span class="pb-jm-num">04</span><span class="pb-jm-name">Redeems receipt</span></td><td>Goes to cashier for cash</td><td>No-hassle money</td><td><span class="pb-chip pb-chip-bad">Annoyed</span></td><td>Receipt lost <span class="pb-pain-tag">Lost money</span></td><td>Auto e-wallet deposit <span class="pb-opp-tag">&#8594; Auto Deposit</span></td></tr>
+        <tr><td class="pb-jm-stage"><span class="pb-jm-num">05</span><span class="pb-jm-name">Uses refund</span></td><td>Spends cash in-store only</td><td>Use refund meaningfully</td><td><span class="pb-chip pb-chip-ok">Limited</span></td><td>No choice <span class="pb-pain-tag">No flexibility</span></td><td>Save, donate, transfer <span class="pb-opp-tag">&#8594; Multiple Options</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="pb-container">
+    <div class="pb-ji-grid">
+      <div class="pb-ji-card pb-reveal pb-reveal-d1"><span class="pb-ji-num">Insight 01</span><h4>Eliminate the Paper Layer</h4><p>Every pain point traces back to the paper receipt. Remove it and the biggest friction disappears.</p></div>
+      <div class="pb-ji-card pb-reveal pb-reveal-d2"><span class="pb-ji-num">Insight 02</span><h4>Choice Creates Engagement</h4><p>When users can save, donate, or transfer, they return more bottles and engage more often.</p></div>
+      <div class="pb-ji-card pb-reveal pb-reveal-d3"><span class="pb-ji-num">Insight 03</span><h4>Small Amounts, Big Impact</h4><p>Tiny refunds feel meaningless alone. But accumulated in saving pots with interest, they become significant.</p></div>
+    </div>
+  </div>
+</section>
+
+<div class="pb-challenge pb-reveal">
+  <span class="pb-eyebrow">Design Challenge</span>
+  <h2>How might we turn bottle returns from a <em>frustrating chore</em> into a seamless, rewarding experience?</h2>
+</div>
+
+<section id="design" class="pb-section">
+  <div class="pb-container">
+    <div class="pb-section-head pb-reveal"><span class="pb-eyebrow">Design Decisions</span><h2>Five features shaped by research</h2><p class="pb-sub-desc">Every feature connects directly to a validated user insight. No assumptions.</p></div>
+    <div class="pb-sol-grid">
+
+      <div class="pb-sol-card pb-reveal pb-reveal-d1">
+        <div class="pb-sol-img"><img src="pfandbank feature 1.png" alt="Digital Payouts mockup" /></div>
+        <span class="pb-sol-num">Feature 01</span>
+        <h3>Digital Payouts</h3>
+        <p>Bank transfer, e-wallet, saving pots, and donation, all from a single refund flow.</p>
+        <div class="pb-sol-tags"><span>Flexibility</span><span>User Control</span></div>
+      </div>
+
+      <div class="pb-sol-card pb-reveal pb-reveal-d2">
+        <div class="pb-sol-img"><img src="Pfandbank feature 2.png" alt="Simplified Donation mockup" /></div>
+        <span class="pb-sol-num">Feature 02</span>
+        <h3>Simplified Donation</h3>
+        <p>Browse charities, pick a payment method, and share your donation to inspire others.</p>
+        <div class="pb-sol-tags"><span>Frictionless</span><span>Social Impact</span></div>
+      </div>
+
+      <div class="pb-sol-card pb-reveal pb-reveal-d3">
+        <div class="pb-sol-img"><img src="pfandbank feature 3.png" alt="E-Wallet & Saving Pots mockup" /></div>
+        <span class="pb-sol-num">Feature 03</span>
+        <h3>E-Wallet &amp; Saving Pots</h3>
+        <p>Fixed and flexible pots with interest that turn small refunds into real savings over time.</p>
+        <div class="pb-sol-tags"><span>Micro-Savings</span><span>Engagement</span></div>
+      </div>
+
+      <div class="pb-sol-card pb-reveal pb-reveal-d1">
+        <div class="pb-sol-img"><img src="pfandbank feature 4.png" alt="Machine Locator mockup" /></div>
+        <span class="pb-sol-num">Feature 04</span>
+        <h3>Machine Locator</h3>
+        <p>Find nearby machines with real-time availability, helpful for both users and retailers.</p>
+        <div class="pb-sol-tags"><span>Convenience</span><span>Location-Based</span></div>
+      </div>
+
+      <div class="pb-sol-card pb-reveal pb-reveal-d2">
+        <div class="pb-sol-img"><img src="pfandbank feature 5.png" alt="Automated Scan Flow mockup" /></div>
+        <span class="pb-sol-num">Feature 05</span>
+        <h3>Automated Scan Flow</h3>
+        <p>QR scan auto-completes with a receipt summary. Fewer decisions, less cognitive load.</p>
+        <div class="pb-sol-tags"><span>Hick's Law</span><span>Auto-Complete</span></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="pb-section pb-tinted-section">
+  <div class="pb-container">
+    <div class="pb-section-head pb-reveal"><span class="pb-eyebrow">Key Iterations</span><h2>How feedback reshaped the design</h2></div>
+    <div class="pb-iter-list">
+      <div class="pb-iter pb-iter-home pb-reveal">
+        <span class="pb-iter-label">Home Screen</span>
+        <div>
+          <h4>Charity Section</h4>
+          <div class="pb-home-combined">
+            <div class="pb-home-stage-board">
+              <div class="pb-home-stage-grid">
+                <article class="pb-home-stage"><h5>First Design</h5><div class="pb-home-phone"><img src="homepage 1.png" alt="PfandBank first home screen design" /></div></article>
+                <article class="pb-home-stage"><h5>1st Iteration</h5><div class="pb-home-phone"><img src="homepage 2.png" alt="PfandBank first iteration home screen" /></div></article>
+                <article class="pb-home-stage"><h5>Final Design</h5><div class="pb-home-phone"><img src="homepage 3.png" alt="PfandBank final home screen design" /></div></article>
+              </div>
+            </div>
+            <div class="pb-home-notes">
+              <p class="pb-home-intro">We started with the home page to give users access to all app features.</p>
+              <div class="pb-home-step"><span class="pb-home-step-badge">1</span><p><strong>First Iteration:</strong> Replaced the ad-like charity card with a simple detail card that users noticed and trusted.</p></div>
+              <div class="pb-home-step"><span class="pb-home-step-badge">2</span><p><strong>Second Iteration:</strong> Improved clarity and added horizontal scrolling so users could browse faster with fewer taps.</p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="pb-iter pb-iter-home pb-reveal">
+        <span class="pb-iter-label">Charity Payout</span>
+        <div>
+          <h4>Charity Payment Methods</h4>
+          <div class="pb-home-combined">
+            <div class="pb-home-stage-board">
+              <div class="pb-charity-groups">
+                <div class="pb-charity-prev">
+                  <p class="pb-charity-group-title">Previous Flow</p>
+                  <div class="pb-home-stage-grid pb-home-stage-grid-2">
+                    <article class="pb-home-stage"><div class="pb-home-phone"><img src="Transaction old 1.png" alt="Charity payment previous flow screen 1" /></div></article>
+                    <article class="pb-home-stage"><div class="pb-home-phone"><img src="Transaction old 2.png" alt="Charity payment previous flow screen 2" /></div></article>
+                  </div>
+                </div>
+                <div class="pb-charity-after">
+                  <p class="pb-charity-group-title">After Iteration</p>
+                  <div class="pb-home-stage-grid pb-home-stage-grid-3">
+                    <article class="pb-home-stage"><div class="pb-home-phone"><img src="Transaction History 1.png" alt="Charity payment after iteration screen 1" /></div></article>
+                    <article class="pb-home-stage"><div class="pb-home-phone"><img src="Transaction History 2.png" alt="Charity payment after iteration screen 2" /></div></article>
+                    <article class="pb-home-stage"><div class="pb-home-phone"><img src="Transaction History 3.png" alt="Charity payment after iteration screen 3" /></div></article>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="pb-home-notes">
+              <div class="pb-home-step"><span class="pb-home-step-badge">1</span><p><strong>Before:</strong> Users picked an amount, saw only Apple Pay, and landed on a success screen. No further engagement.</p></div>
+              <div class="pb-home-step"><span class="pb-home-step-badge">2</span><p><strong>After:</strong> We showed all available payment methods and added social sharing post-donation, giving users control and encouraging a ripple effect.</p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="pb-iter pb-iter-home pb-reveal">
+        <span class="pb-iter-label">Transactions</span>
+        <div>
+          <h4>Confirmation &amp; Trust</h4>
+          <div class="pb-home-combined">
+            <div class="pb-home-stage-board">
+              <div class="pb-charity-groups">
+                <div class="pb-charity-prev">
+                  <p class="pb-charity-group-title">Previous Flow</p>
+                  <div class="pb-home-stage-grid pb-home-stage-grid-2">
+                    <article class="pb-home-stage"><div class="pb-home-phone"><img src="Confirmation old 1.png" alt="Transactions previous flow screen 1" /></div></article>
+                    <article class="pb-home-stage"><div class="pb-home-phone"><img src="Confirmation old 2.png" alt="Transactions previous flow screen 2" /></div></article>
+                  </div>
+                </div>
+                <div class="pb-charity-after">
+                  <p class="pb-charity-group-title">Final Iteration</p>
+                  <div class="pb-home-stage-grid pb-home-stage-grid-3">
+                    <article class="pb-home-stage"><div class="pb-home-phone"><img src="Confirmation 1.png" alt="Transactions final iteration screen 1" /></div></article>
+                    <article class="pb-home-stage"><div class="pb-home-phone"><img src="Confirmation 2.png" alt="Transactions final iteration screen 2" /></div></article>
+                    <article class="pb-home-stage"><div class="pb-home-phone"><img src="Confirmation 3.png" alt="Transactions final iteration screen 3" /></div></article>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="pb-home-notes">
+              <div class="pb-home-step"><span class="pb-home-step-badge">1</span><p><strong>Before:</strong> Enter amount, money sent instantly. No confirmation, no verification, no proof.</p></div>
+              <div class="pb-home-step"><span class="pb-home-step-badge">2</span><p><strong>After:</strong> Added a confirmation screen with full details before finalising, plus a share button so users can send the receipt for verification.</p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="pb-iter pb-iter-home pb-reveal">
+        <span class="pb-iter-label">Marketplace</span>
+        <div>
+          <h4>Deals &amp; Promotions</h4>
+          <div class="pb-home-combined">
+            <div class="pb-home-stage-board">
+              <div class="pb-charity-groups">
+                <div class="pb-charity-prev">
+                  <p class="pb-charity-group-title">Previous Flow</p>
+                  <div class="pb-home-stage-grid pb-home-stage-grid-2">
+                    <article class="pb-home-stage"><div class="pb-home-phone"><img src="Marketplace old 1.png" alt="Marketplace previous flow screen 1" /></div></article>
+                    <article class="pb-home-stage"><div class="pb-home-phone"><img src="Marketplace old 2.png" alt="Marketplace previous flow screen 2" /></div></article>
+                  </div>
+                </div>
+                <div class="pb-charity-after">
+                  <p class="pb-charity-group-title">Final Iteration</p>
+                  <div class="pb-home-stage-grid pb-home-stage-grid-3">
+                    <article class="pb-home-stage"><div class="pb-home-phone"><img src="Marketplace 1.png" alt="Marketplace final iteration screen 1" /></div></article>
+                    <article class="pb-home-stage"><div class="pb-home-phone"><img src="Marketplace 2.png" alt="Marketplace final iteration screen 2" /></div></article>
+                    <article class="pb-home-stage"><div class="pb-home-phone"><img src="Marketplace 3.png" alt="Marketplace final iteration screen 3" /></div></article>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="pb-home-notes">
+              <div class="pb-home-step"><span class="pb-home-step-badge">1</span><p><strong>Before:</strong> Users saw only the machine location. Nothing extra for the trip.</p></div>
+              <div class="pb-home-step"><span class="pb-home-step-badge">2</span><p><strong>After:</strong> Added in-store deals and promotions alongside machine locations, giving users a reason to visit and retailers a way to drive foot traffic.</p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="pb-section">
+  <div class="pb-container">
+    <div class="pb-section-head pb-reveal"><span class="pb-eyebrow">Design System</span><h2>Built for consistency and speed</h2></div>
+    <div class="pb-ds-grid">
+      <div class="pb-glass-card pb-reveal pb-reveal-d1"><h3>&#127912; Logo</h3><p>Represents recycling and money digitisation, the two core values of PfandBank. Multiple iterations for brand alignment.</p></div>
+      <div class="pb-glass-card pb-reveal pb-reveal-d2"><h3>&#127912; Color Palette</h3><p>Blue for trust. Green for sustainability. White for clarity.</p><div class="pb-ds-colors"><div class="pb-swatch" style="background:#1A73E8;" data-tip="Primary Blue"></div><div class="pb-swatch" style="background:#27AE60;" data-tip="Green"></div><div class="pb-swatch" style="background:#F5F5F5;" data-tip="BG Grey"></div><div class="pb-swatch" style="background:#fff;" data-tip="White"></div><div class="pb-swatch" style="background:#1A1A1A;" data-tip="Text"></div></div></div>
+      <div class="pb-glass-card pb-reveal pb-reveal-d3"><h3>&#9881;&#65039; Typography &amp; Grid</h3><p>Inter typeface. 12-column grid, 24px gutters, 16px margins for consistent alignment.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="pb-section pb-tinted-section">
+  <div class="pb-container">
+    <div class="pb-section-head pb-center pb-reveal"><span class="pb-eyebrow">Sustainability Framework</span><h2>UN SDGs as design principles</h2></div>
+    <div class="pb-sdg-grid">
+      <div class="pb-sdg-card pb-reveal pb-reveal-d1"><span class="pb-sdg-num">Goal #1</span><h3>No Poverty</h3><p>Frictionless donation redirects refunds to causes fighting poverty.</p></div>
+      <div class="pb-sdg-card pb-reveal pb-reveal-d2"><span class="pb-sdg-num">Goal #2</span><h3>Zero Hunger</h3><p>Integrated content turns everyday recycling into food security contributions.</p></div>
+      <div class="pb-sdg-card pb-reveal pb-reveal-d3"><span class="pb-sdg-num">Goal #12</span><h3>Responsible Consumption</h3><p>A convenient process increases bottle return rates and reduces waste.</p></div>
+      <div class="pb-sdg-card pb-reveal pb-reveal-d4"><span class="pb-sdg-num">Goal #14</span><h3>Life Below Water</h3><p>Better UX means more recycling and fewer plastic bottles ending up in oceans.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="testing" class="pb-outcomes">
+  <div class="pb-container">
+    <div class="pb-section-head pb-center pb-reveal"><span class="pb-eyebrow">Usability Testing</span><h2>Tested with 10 eco-conscious users, aged 25 to 40</h2></div>
+    <div class="pb-outcomes-grid">
+      <div class="pb-outcome pb-reveal pb-reveal-d1"><span class="pb-outcome-num">High</span><span class="pb-outcome-lbl">task completion across all flows</span></div>
+      <div class="pb-outcome pb-reveal pb-reveal-d2"><span class="pb-outcome-num">4</span><span class="pb-outcome-lbl">core tasks tested</span></div>
+      <div class="pb-outcome pb-reveal pb-reveal-d3"><span class="pb-outcome-num">&#9733;</span><span class="pb-outcome-lbl">positive emotional responses</span></div>
+      <div class="pb-outcome pb-reveal pb-reveal-d4"><span class="pb-outcome-num">3+</span><span class="pb-outcome-lbl">rounds of real user feedback</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="prototype" class="pb-section">
+  <div class="pb-container">
+    <span class="pb-eyebrow pb-reveal">Prototype</span>
+    <p class="pb-proto-desc pb-reveal">Click through the live prototype below or open it fullscreen.</p>
+    <div class="pb-proto-wrap pb-reveal"><iframe class="pb-proto-frame" src="https://embed.figma.com/proto/if0QJdPbxtEFLJnXHbDl2j/PfandBank-Final-File--Copy-?page-id=41%3A3679&amp;node-id=638-6083&amp;viewport=339%2C-58%2C0.09&amp;scaling=min-zoom&amp;content-scaling=fixed&amp;starting-point-node-id=638%3A5771&amp;show-proto-sidebar=0&amp;hide-ui=1&amp;embed-host=share" allowfullscreen loading="lazy" title="PfandBank prototype"></iframe></div>
+    <div class="pb-proto-actions"><a class="pb-proto-btn" href="https://www.figma.com/design/if0QJdPbxtEFLJnXHbDl2j/PfandBank-Final-File--Copy-?node-id=638-4724" target="_blank" rel="noopener">Open fullscreen &#8599;</a></div>
+  </div>
+</section>
+
+<section id="reflection" class="pb-section">
+  <div class="pb-container">
+    <div class="pb-section-head pb-reveal"><span class="pb-eyebrow">Reflection</span><h2>What I learned</h2></div>
+    <div class="pb-ref-grid">
+      <div class="pb-glass-card pb-reveal pb-reveal-d1"><span class="pb-ref-icon">&#128300;</span><h3>Research Drives Everything</h3><p>Every feature that resonated came from a validated insight. Assumptions rarely matched what users actually needed.</p></div>
+      <div class="pb-glass-card pb-reveal pb-reveal-d2"><span class="pb-ref-icon">&#9986;&#65039;</span><h3>Fewer Decisions = Better UX</h3><p>The most impactful iterations removed steps, not added features. The scan flow proved this perfectly.</p></div>
+      <div class="pb-glass-card pb-reveal pb-reveal-d3"><span class="pb-ref-icon">&#128295;</span><h3>Design Systems Pay Off</h3><p>Investing time upfront made the hi-fi phase faster and kept visuals consistent without constant cross-checking.</p></div>
+    </div>
+    <div class="pb-next-steps pb-reveal"><p><strong>What I'd do differently:</strong> Test with a larger, more diverse group. Explore retailer partnerships and gamification to keep engagement going long-term.</p></div>
+  </div>
+</section>
+
+<div class="pb-next-cs">
+  <div class="pb-next-cs-inner">
+    <div><span class="pb-next-label">Next Case Study</span><span class="pb-next-title">HistARic</span></div>
+    <a href="case-study-3.html" class="pb-next-arrow" aria-label="Go to HistARic">&#8594;</a>
+  </div>
+</div>
+
+<script>
+const prog=document.getElementById('pb-progress');
+window.addEventListener('scroll',()=>{const s=window.scrollY,t=document.documentElement.scrollHeight-window.innerHeight;prog.style.width=(s/t*100)+'%';},{passive:true});
+const rObs=new IntersectionObserver(e=>{e.forEach(el=>{if(el.isIntersecting){el.target.classList.add('pb-visible');rObs.unobserve(el.target);}});},{threshold:0.12});
+document.querySelectorAll('.pb-reveal').forEach(el=>rObs.observe(el));
+document.querySelectorAll('[data-insight]').forEach(c=>{c.querySelector('.pb-insight-header').addEventListener('click',()=>{const o=c.classList.contains('pb-open');document.querySelectorAll('[data-insight].pb-open').forEach(x=>x.classList.remove('pb-open'));if(!o)c.classList.add('pb-open');});});
+const ff=document.getElementById('pb-frust-fill');
+const pO=new IntersectionObserver(e=>{e.forEach(el=>{if(el.isIntersecting){setTimeout(()=>{ff.style.width='78%';},350);pO.unobserve(el.target);}});},{threshold:0.4});
+const pc=document.querySelector('.pb-persona');if(pc)pO.observe(pc);
+const tb=document.querySelector('.pb-topbar');
+window.addEventListener('scroll',()=>{tb.style.boxShadow=window.scrollY>10?'0 2px 20px rgba(10,40,60,0.08)':'none';},{passive:true});
+</script>
+
+</body>
+</html>

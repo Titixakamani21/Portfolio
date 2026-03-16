@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Design Case Studies | Titixa Kamani</title>
+  <meta name="description" content="UX Design Case Studies by Titixa Kamani" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Manrope:wght@300;400;500;600;700&family=Silkscreen:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #f5f2ed;
+      --text: #1a1410;
+      --muted: #8a7e75;
+      --accent: #1b2a4a;
+      --line: rgba(26, 20, 16, 0.08);
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { background: var(--bg); overscroll-behavior: none; }
+    html, body { overscroll-behavior: none; scroll-behavior: smooth; }
+    body { min-height: 100vh; overflow-x: hidden; font-family: "Manrope", sans-serif; color: var(--text); background: var(--bg); }
+
+    .grain {
+      position: fixed; inset: 0; pointer-events: none; z-index: 9999; opacity: 0.028;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 200px;
+    }
+
+    .page-wrap { width: min(1100px, 92%); margin: 0 auto; padding: 2rem 0 5rem; }
+
+    .back-bar {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 0.8rem 0; margin-bottom: 2rem;
+      animation: fadeIn 0.6s var(--ease-out) both;
+    }
+
+    .back-link {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      text-decoration: none; color: var(--muted); font-size: 0.88rem; font-weight: 600;
+      transition: color 0.3s ease;
+    }
+    .back-link:hover { color: var(--text); }
+    .back-link svg { width: 18px; height: 18px; }
+
+    .back-name {
+      font-family: "Playfair Display", serif;
+      font-size: 1.1rem; font-weight: 500; color: var(--text); text-decoration: none;
+    }
+
+    /* ── Pixel-style folder label ── */
+    .cs-folder-label {
+      font-family: "Silkscreen", monospace;
+      font-size: clamp(1rem, 2vw, 1.5rem);
+      color: var(--muted);
+      margin-bottom: 0.5rem;
+      letter-spacing: 0.04em;
+      animation: fadeSlideUp 0.7s var(--ease-out) both;
+      animation-delay: 0.1s;
+    }
+
+    .cs-page-heading {
+      margin-bottom: 2.5rem;
+      animation: fadeSlideUp 0.8s var(--ease-out) both;
+      animation-delay: 0.15s;
+    }
+
+    .cs-page-heading h1 {
+      font-family: "Playfair Display", serif;
+      font-size: clamp(2.2rem, 4.5vw, 3.6rem);
+      font-weight: 500; color: var(--accent); line-height: 1.1;
+    }
+
+    .cs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1.6rem;
+    }
+
+    .cs-card {
+      background: #fff; border-radius: 14px; border: 1px solid var(--line);
+      padding: 1.4rem; text-decoration: none; color: inherit; display: block;
+      transition: all 0.5s var(--ease-out);
+      animation: fadeSlideUp 0.7s var(--ease-out) both;
+    }
+    .cs-card:nth-child(1) { animation-delay: 0.25s; }
+    .cs-card:nth-child(2) { animation-delay: 0.38s; }
+    .cs-card:nth-child(3) { animation-delay: 0.51s; }
+
+    .cs-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.08);
+      border-color: rgba(26,20,16,0.15);
+    }
+
+    .cs-card img {
+      width: 100%; aspect-ratio: 16 / 10; object-fit: cover;
+      border-radius: 10px; display: block; margin-bottom: 1rem;
+      transition: transform 0.5s var(--ease-out);
+    }
+    .cs-card:hover img { transform: scale(1.02); }
+
+    .cs-card-tag {
+      font-family: "Manrope", sans-serif; font-size: 0.72rem; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--muted); font-weight: 700; margin-bottom: 0.3rem;
+    }
+
+    .cs-card h2 {
+      font-family: "Playfair Display", serif; font-size: 1.5rem;
+      font-weight: 500; color: var(--accent); margin-bottom: 0.4rem;
+    }
+
+    .cs-card p { font-size: 0.92rem; color: var(--muted); line-height: 1.6; margin-bottom: 0.8rem; }
+
+    .cs-card-cta {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      color: var(--accent); font-weight: 600; font-size: 0.88rem;
+      transition: gap 0.3s var(--ease-out);
+    }
+    .cs-card:hover .cs-card-cta { gap: 0.7rem; }
+
+    .cs-card-histaric img { object-fit: cover; background: transparent; }
+
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes fadeSlideUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+
+    @media (max-width: 700px) { .cs-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <div class="grain" aria-hidden="true"></div>
+
+  <div class="page-wrap">
+    <div class="back-bar">
+      <a href="index.html" class="back-link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><polyline points="12 19 5 12 12 5"/></svg>
+        Back to Desktop
+      </a>
+      <a href="index.html" class="back-name">Titixa Kamani</a>
+    </div>
+
+
+    <div class="cs-page-heading">
+      <h1>Design Case Studies</h1>
+    </div>
+
+    <div class="cs-grid">
+      <a class="cs-card" href="case-study-1.html">
+        <img src="eco-travel-aid-thumbnail.png?v=4" alt="Eco Travel Aid case study thumbnail" />
+        <p class="cs-card-tag">Case Study 01</p>
+        <h2>Eco-Travel Aid</h2>
+        <p>End-to-end journey designed to promote sustainable travel.</p>
+        <span class="cs-card-cta">View Case Study <span>&rarr;</span></span>
+      </a>
+
+      <a class="cs-card" href="case-study-2.html">
+        <img src="Pfandbank casestudy.png" alt="PfandBank case study cover" />
+        <p class="cs-card-tag">Case Study 02</p>
+        <h2>PfandBank</h2>
+        <p>A fintech mobile app that digitises Germany's bottle deposit system.</p>
+        <span class="cs-card-cta">View Case Study <span>&rarr;</span></span>
+      </a>
+
+      <a class="cs-card cs-card-histaric" href="case-study-3.html">
+        <img src="HistarRic CaseStudy .png" alt="HistARic case study cover" />
+        <p class="cs-card-tag">Case Study 03</p>
+        <h2>HistARic</h2>
+        <p>An AR mobile app that reconstructs historical ruins in 3D.</p>
+        <span class="cs-card-cta">View Case Study <span>&rarr;</span></span>
+      </a>
+    </div>
+  </div>
+</body>
+</html>

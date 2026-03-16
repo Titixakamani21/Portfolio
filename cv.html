@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>CV — Titixa Kamani</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+:root{--bg:#e9e6e0;--red:#e03a0e;--dim:rgba(224,58,14,0.45);--border:rgba(224,58,14,0.15);--serif:'Cormorant Garamond',serif;--sans:'DM Sans',sans-serif;--display:'Bebas Neue',sans-serif;--ease-out:cubic-bezier(0.16,1,0.3,1);}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:var(--sans);color:var(--red);background:var(--bg);overflow-x:hidden;cursor:none;}
+a{color:var(--red);text-decoration:none;}
+img{display:block;max-width:100%;}
+
+#grain{position:fixed;inset:0;pointer-events:none;z-index:7000;opacity:0.035;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.88' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:200px;}
+#progress-bar{position:fixed;top:0;left:0;height:2px;width:0%;background:var(--red);z-index:9999;}
+#cursor-dot{position:fixed;width:7px;height:7px;background:var(--red);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .25s var(--ease-out),height .25s var(--ease-out);}
+#cursor-ring{position:fixed;width:36px;height:36px;border:1.5px solid rgba(224,58,14,.5);border-radius:50%;pointer-events:none;z-index:9997;transform:translate(-50%,-50%);transition:width .45s var(--ease-out),height .45s var(--ease-out);}
+body.cur-link #cursor-dot{width:5px;height:5px;}
+body.cur-link #cursor-ring{width:60px;height:60px;border-color:rgba(224,58,14,.22);}
+
+#page-in{position:fixed;inset:0;background:var(--bg);z-index:6000;pointer-events:none;animation:pageIn .6s var(--ease-out) both;}
+@keyframes pageIn{from{opacity:1}to{opacity:0;visibility:hidden;}}
+#page-out{position:fixed;inset:0;background:var(--bg);z-index:6000;opacity:0;pointer-events:none;transition:opacity .5s var(--ease-out);}
+#page-out.active{opacity:1;pointer-events:all;}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:center;justify-content:space-between;padding:1.4rem 2.5rem;transition:background .4s ease,border-bottom .4s ease;}
+nav.scrolled{background:rgba(233,230,224,.92);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);}
+.nav-logo{font-family:var(--display);font-size:1.05rem;letter-spacing:.06em;transition:opacity .2s;}
+.nav-logo:hover{opacity:.6;}
+.nav-links{display:flex;gap:2rem;list-style:none;align-items:center;}
+.nav-links a,.nav-links button{font-family:var(--sans);font-size:.88rem;position:relative;transition:opacity .2s;background:none;border:none;cursor:none;color:var(--red);padding:0;}
+.nav-links a::after,.nav-links button::after{content:'';position:absolute;bottom:-3px;left:0;width:0;height:1px;background:var(--red);transition:width .35s var(--ease-out);}
+.nav-links a:hover,.nav-links button:hover{opacity:.7;}
+.nav-links a:hover::after,.nav-links button:hover::after{width:100%;}
+
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .8s var(--ease-out),transform .8s var(--ease-out);}
+.reveal.visible{opacity:1;transform:none;}
+.d1{transition-delay:.1s;}.d2{transition-delay:.2s;}.d3{transition-delay:.3s;}
+
+/* PAGE HEADER */
+.cv-page-header{padding:clamp(7rem,14vw,11rem) 2.5rem clamp(3rem,5vw,5rem);border-bottom:1px solid var(--border);}
+.cv-page-eyebrow{font-family:var(--serif);font-style:italic;font-size:clamp(.9rem,1.3vw,1.15rem);color:var(--dim);margin-bottom:1rem;display:block;}
+.cv-page-title{font-family:var(--display);font-size:clamp(5rem,12vw,14rem);letter-spacing:-.01em;line-height:.82;}
+.cv-page-sub{font-family:var(--serif);font-style:italic;font-size:clamp(1.2rem,2vw,1.8rem);margin-top:1.2rem;}
+.cv-download-wrap{margin-top:2.5rem;display:flex;align-items:center;gap:1.5rem;flex-wrap:wrap;}
+.cv-download-btn{font-family:var(--display);font-size:1.1rem;letter-spacing:.08em;border:1px solid var(--red);background:transparent;color:var(--red);padding:.8rem 2.2rem;cursor:none;transition:all .4s var(--ease-out);position:relative;overflow:hidden;display:inline-block;}
+.cv-download-btn::before{content:'';position:absolute;inset:0;background:var(--red);transform:scaleX(0);transform-origin:left;transition:transform .5s var(--ease-out);z-index:-1;}
+.cv-download-btn:hover{color:var(--bg);}
+.cv-download-btn:hover::before{transform:scaleX(1);}
+.cv-download-note{font-family:var(--sans);font-size:.75rem;color:var(--dim);}
+
+/* CV BODY */
+.cv-body{display:grid;grid-template-columns:1fr 2fr;min-height:60vh;}
+.cv-sidebar{padding:clamp(3rem,5vw,5rem) clamp(2rem,4vw,4rem);border-right:1px solid var(--border);position:sticky;top:80px;align-self:start;}
+.cv-sidebar-name{font-family:var(--display);font-size:clamp(1.6rem,2.8vw,2.4rem);letter-spacing:.04em;line-height:1;margin-bottom:.4rem;}
+.cv-sidebar-role{font-family:var(--serif);font-style:italic;font-size:clamp(1rem,1.6vw,1.4rem);margin-bottom:2rem;}
+.cv-sidebar-contact{list-style:none;display:flex;flex-direction:column;gap:.7rem;border-top:1px solid var(--border);padding-top:1.5rem;}
+.cv-sidebar-contact li{font-family:var(--sans);font-size:.82rem;font-weight:300;}
+.cv-sidebar-contact a{border-bottom:1px solid rgba(224,58,14,.25);transition:opacity .2s;}
+.cv-sidebar-contact a:hover{opacity:.6;}
+
+/* sidebar skills */
+.cv-skills-label{font-family:var(--serif);font-style:italic;font-size:clamp(.9rem,1.3vw,1.1rem);margin:2.5rem 0 1rem;border-bottom:1px solid var(--border);padding-bottom:4px;display:inline-block;}
+.cv-skills-list{list-style:none;display:flex;flex-direction:column;gap:.5rem;}
+.cv-skills-list li{font-family:var(--sans);font-size:.8rem;font-weight:300;padding:.35rem 0;border-bottom:1px solid var(--border);}
+
+/* main content */
+.cv-main{padding:clamp(3rem,5vw,5rem) clamp(2rem,4vw,4rem);}
+.cv-section{margin-bottom:clamp(3rem,5vw,5rem);}
+.cv-section-label{font-family:var(--serif);font-style:italic;font-size:clamp(1.2rem,2vw,1.8rem);border-bottom:1px solid var(--red);display:inline-block;padding-bottom:2px;margin-bottom:2rem;}
+
+/* entries */
+.cv-entry{padding:clamp(1.2rem,2vw,1.8rem) 0;border-bottom:1px solid var(--border);display:grid;grid-template-columns:1fr auto;gap:1.5rem;align-items:start;transition:padding-left .35s var(--ease-out);}
+.cv-entry:first-of-type{border-top:1px solid var(--border);}
+.cv-entry:hover{padding-left:.6rem;}
+.cv-entry-left{}
+.cv-entry-company{font-family:var(--sans);font-size:.7rem;font-weight:400;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);margin-bottom:.3rem;}
+.cv-entry-role{font-family:var(--display);font-size:clamp(1.8rem,3.2vw,3rem);letter-spacing:.02em;line-height:.9;margin-bottom:.6rem;}
+.cv-entry-desc{font-family:var(--sans);font-size:clamp(.82rem,1.2vw,.95rem);font-weight:300;line-height:1.7;max-width:46ch;color:var(--dim);}
+.cv-entry-date{font-family:var(--serif);font-style:italic;font-size:clamp(.9rem,1.3vw,1.1rem);white-space:nowrap;flex-shrink:0;}
+
+/* photo placeholder */
+.cv-photo-placeholder{width:100%;aspect-ratio:3/4;background:#ccc8c0;display:flex;align-items:center;justify-content:center;border:1px dashed rgba(224,58,14,.25);margin-bottom:2rem;}
+.cv-photo-placeholder span{font-family:var(--serif);font-style:italic;font-size:.85rem;color:var(--dim);}
+
+/* FOOTER */
+footer{border-top:1px solid var(--border);padding:1.8rem 2.5rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;}
+.footer-copy{font-family:var(--sans);font-size:.75rem;font-weight:300;color:var(--dim);}
+.footer-links{display:flex;gap:1.5rem;list-style:none;}
+.footer-links a,.footer-links button{font-family:var(--sans);font-size:.82rem;border-bottom:1px solid rgba(224,58,14,.3);padding-bottom:1px;transition:opacity .2s;background:none;border-top:none;border-left:none;border-right:none;cursor:none;color:var(--red);border-bottom:1px solid rgba(224,58,14,.3);}
+.footer-links a:hover,.footer-links button:hover{opacity:.6;}
+
+/* CONTACT POPUP */
+.contact-overlay{position:fixed;inset:0;background:rgba(233,230,224,.7);backdrop-filter:blur(16px);z-index:5000;display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transition:opacity .4s ease,visibility .4s ease;}
+.contact-overlay.active{opacity:1;visibility:visible;}
+.contact-popup{background:var(--bg);border:1px solid var(--border);border-radius:4px;width:min(520px,90vw);padding:3rem 2.5rem;transform:translateY(20px) scale(.97);transition:transform .5s var(--ease-out);position:relative;}
+.contact-overlay.active .contact-popup{transform:translateY(0) scale(1);}
+.contact-close{position:absolute;top:1.2rem;right:1.2rem;width:32px;height:32px;border:1px solid var(--border);border-radius:50%;background:none;cursor:none;display:flex;align-items:center;justify-content:center;font-size:1rem;color:var(--dim);transition:all .3s ease;}
+.contact-close:hover{border-color:var(--red);color:var(--red);}
+.contact-popup-title{font-family:var(--display);font-size:clamp(2rem,4vw,3rem);letter-spacing:.04em;margin-bottom:.3rem;}
+.contact-popup-sub{font-family:var(--serif);font-style:italic;font-size:1.1rem;color:var(--dim);margin-bottom:2rem;}
+.cf-field{margin-bottom:1.6rem;position:relative;}
+.cf-field input,.cf-field textarea{width:100%;background:transparent;border:none;border-bottom:1px solid var(--border);padding:.6rem 0;font-family:var(--sans);font-size:.95rem;color:var(--red);outline:none;transition:border-color .4s ease;resize:none;}
+.cf-field input::placeholder,.cf-field textarea::placeholder{color:var(--dim);}
+.cf-field::after{content:'';position:absolute;bottom:0;left:0;width:0;height:2px;background:var(--red);transition:width .5s var(--ease-out);}
+.cf-field:focus-within::after{width:100%;}
+.cf-footer{display:flex;align-items:center;justify-content:space-between;gap:1rem;margin-top:2rem;flex-wrap:wrap;}
+.cf-send{font-family:var(--display);font-size:1.1rem;letter-spacing:.08em;border:1px solid var(--red);background:transparent;color:var(--red);padding:.7rem 2rem;cursor:none;transition:all .4s var(--ease-out);position:relative;overflow:hidden;}
+.cf-send::before{content:'';position:absolute;inset:0;background:var(--red);transform:scaleX(0);transform-origin:left;transition:transform .5s var(--ease-out);z-index:-1;}
+.cf-send:hover{color:var(--bg);}
+.cf-send:hover::before{transform:scaleX(1);}
+.cf-privacy{font-family:var(--sans);font-size:.7rem;color:var(--dim);line-height:1.5;max-width:160px;text-align:right;}
+
+@media(max-width:860px){body{cursor:auto;}#cursor-dot,#cursor-ring{display:none;}.cv-body{grid-template-columns:1fr;}.cv-sidebar{position:static;border-right:none;border-bottom:1px solid var(--border);}nav{padding:1.2rem 1.5rem;}.nav-links{gap:1.2rem;}}
+</style>
+<style>
+/* ── TK SHARED NAV/FOOTER OVERRIDE ── */
+:root{--bg-cs:var(--bg,#f5f2ed);--red-cs:#e03a0e;--border-cs:rgba(224,58,14,0.15);}
+#tk-grain{position:fixed;inset:0;pointer-events:none;z-index:9990;opacity:0.03;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.88' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:200px;}
+#tk-progress{position:fixed;top:0;left:0;height:2px;width:0%;background:#e03a0e;z-index:9999;}
+#tk-cursor-dot{position:fixed;width:7px;height:7px;background:#e03a0e;border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .25s,height .25s;}
+#tk-cursor-ring{position:fixed;width:36px;height:36px;border:1.5px solid rgba(224,58,14,.45);border-radius:50%;pointer-events:none;z-index:9997;transform:translate(-50%,-50%);transition:width .45s,height .45s;}
+body.tk-cur-link #tk-cursor-dot{width:5px;height:5px;}
+body.tk-cur-link #tk-cursor-ring{width:60px;height:60px;border-color:rgba(224,58,14,.2);}
+#tk-page-in{position:fixed;inset:0;background:#e9e6e0;z-index:6000;pointer-events:none;animation:tkPageIn .6s cubic-bezier(0.16,1,0.3,1) both;}
+@keyframes tkPageIn{from{opacity:1}to{opacity:0;visibility:hidden;}}
+#tk-page-out{position:fixed;inset:0;background:#e9e6e0;z-index:6000;opacity:0;pointer-events:none;transition:opacity .5s cubic-bezier(0.16,1,0.3,1);}
+#tk-page-out.active{opacity:1;pointer-events:all;}
+#tk-nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:center;justify-content:space-between;padding:1.2rem 2.5rem;transition:background .4s ease,border-bottom .4s ease;}
+#tk-nav.scrolled{background:rgba(233,230,224,.92);backdrop-filter:blur(14px);border-bottom:1px solid rgba(224,58,14,.15);}
+.tk-nav-logo{font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:.06em;color:#e03a0e;text-decoration:none;transition:opacity .2s;cursor:none;}
+.tk-nav-logo:hover{opacity:.6;}
+.tk-nav-links{display:flex;gap:1.8rem;list-style:none;align-items:center;}
+.tk-nav-links a,.tk-nav-links button{font-family:'DM Sans',sans-serif;font-size:.84rem;color:#e03a0e;text-decoration:none;position:relative;transition:opacity .2s;background:none;border:none;padding:0;cursor:none;}
+.tk-nav-links a::after,.tk-nav-links button::after{content:'';position:absolute;bottom:-3px;left:0;width:0;height:1px;background:#e03a0e;transition:width .35s cubic-bezier(0.16,1,0.3,1);}
+.tk-nav-links a:hover,.tk-nav-links button:hover{opacity:.7;}
+.tk-nav-links a:hover::after,.tk-nav-links button:hover::after{width:100%;}
+.tk-back-crumb{font-family:'DM Sans',sans-serif;font-size:.75rem;color:rgba(224,58,14,.5);font-weight:300;}
+#tk-footer{border-top:1px solid rgba(224,58,14,.15);padding:1.6rem 2.5rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;margin-top:4rem;}
+.tk-footer-copy{font-family:'DM Sans',sans-serif;font-size:.72rem;color:rgba(224,58,14,.5);}
+.tk-footer-links{display:flex;gap:1.4rem;list-style:none;}
+.tk-footer-links a,.tk-footer-links button{font-family:'DM Sans',sans-serif;font-size:.8rem;color:#e03a0e;border-bottom:1px solid rgba(224,58,14,.25);padding-bottom:1px;transition:opacity .2s;background:none;border-top:none;border-left:none;border-right:none;border-bottom:1px solid rgba(224,58,14,.25);cursor:none;}
+.tk-footer-links a:hover,.tk-footer-links button:hover{opacity:.6;}
+.tk-contact-overlay{position:fixed;inset:0;background:rgba(233,230,224,.7);backdrop-filter:blur(16px);z-index:5000;display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transition:opacity .4s ease,visibility .4s ease;}
+.tk-contact-overlay.active{opacity:1;visibility:visible;}
+.tk-contact-popup{background:#e9e6e0;border:1px solid rgba(224,58,14,.15);border-radius:4px;width:min(520px,90vw);padding:2.8rem 2.4rem;transform:translateY(20px) scale(.97);transition:transform .5s cubic-bezier(0.16,1,0.3,1);position:relative;}
+.tk-contact-overlay.active .tk-contact-popup{transform:translateY(0) scale(1);}
+.tk-contact-close{position:absolute;top:1.1rem;right:1.1rem;width:30px;height:30px;border:1px solid rgba(224,58,14,.2);border-radius:50%;background:none;cursor:none;display:flex;align-items:center;justify-content:center;font-size:.95rem;color:rgba(224,58,14,.5);transition:all .3s;}
+.tk-contact-close:hover{border-color:#e03a0e;color:#e03a0e;}
+.tk-popup-title{font-family:'Bebas Neue',sans-serif;font-size:2.4rem;letter-spacing:.04em;color:#e03a0e;margin-bottom:.3rem;}
+.tk-popup-sub{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.05rem;color:rgba(224,58,14,.55);margin-bottom:1.8rem;}
+.tk-cf-field{margin-bottom:1.4rem;position:relative;}
+.tk-cf-field input,.tk-cf-field textarea{width:100%;background:transparent;border:none;border-bottom:1px solid rgba(224,58,14,.2);padding:.5rem 0;font-family:'DM Sans',sans-serif;font-size:.9rem;color:#e03a0e;outline:none;resize:none;}
+.tk-cf-field input::placeholder,.tk-cf-field textarea::placeholder{color:rgba(224,58,14,.4);}
+.tk-cf-field::after{content:'';position:absolute;bottom:0;left:0;width:0;height:2px;background:#e03a0e;transition:width .5s cubic-bezier(0.16,1,0.3,1);}
+.tk-cf-field:focus-within::after{width:100%;}
+.tk-cf-row{display:flex;align-items:center;justify-content:space-between;gap:1rem;margin-top:1.8rem;flex-wrap:wrap;}
+.tk-cf-send{font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:.08em;border:1px solid #e03a0e;background:transparent;color:#e03a0e;padding:.65rem 1.8rem;cursor:none;transition:all .4s;position:relative;overflow:hidden;}
+.tk-cf-send::before{content:'';position:absolute;inset:0;background:#e03a0e;transform:scaleX(0);transform-origin:left;transition:transform .5s cubic-bezier(0.16,1,0.3,1);z-index:-1;}
+.tk-cf-send:hover{color:#e9e6e0;}
+.tk-cf-send:hover::before{transform:scaleX(1);}
+.tk-cf-privacy{font-family:'DM Sans',sans-serif;font-size:.67rem;color:rgba(224,58,14,.45);line-height:1.5;max-width:150px;text-align:right;}
+@media(max-width:768px){body{cursor:auto;}#tk-cursor-dot,#tk-cursor-ring{display:none;}#tk-nav{padding:1rem 1.5rem;}.tk-nav-links{gap:1.2rem;}}
+</style>
+</head>
+<body>
+<div id="tk-grain" aria-hidden="true"></div>
+<div id="tk-progress"></div>
+<div id="tk-cursor-dot"></div>
+<div id="tk-cursor-ring"></div>
+<div id="tk-page-in"></div>
+<div id="tk-page-out"></div>
+
+<nav id="tk-nav">
+  <a href="index.html" class="tk-nav-logo back-link">TITIXA KAMANI</a>
+  <ul class="tk-nav-links">
+    <li><a href="index.html#info" class="back-link">Info</a></li>
+    <li><a href="index.html#works" class="back-link">Works</a></li>
+    <li><span style="font-family:var(--display);font-size:.88rem;opacity:.5;">CV</span></li>
+    <li><button id="nav-contact-btn">Contact</button></li>
+  </ul>
+</nav>
+
+<header class="cv-page-header">
+  <span class="cv-page-eyebrow reveal">Curriculum Vitae</span>
+  <div class="cv-page-title reveal d1">CV</div>
+  <div class="cv-page-sub reveal d2">Titixa Kamani — Product Designer &amp; Developer</div>
+  <div class="cv-download-wrap reveal d3">
+    <!-- Replace href with your actual PDF file, e.g. href="titixa-kamani-cv.pdf" -->
+    <a href="#" class="cv-download-btn" download>DOWNLOAD PDF ↓</a>
+    <span class="cv-download-note">PDF available — replace href with your file</span>
+  </div>
+</header>
+
+<div class="cv-body">
+  <aside class="cv-sidebar">
+    <!-- Replace with: <img src="titixa_kamani.png" ...> -->
+    <img
+      class="tools-photo reveal d2"
+      src="titixakamani3.png"
+      alt="Titixa Kamani"
+      onerror="this.style.background='#c8c2b8'; this.removeAttribute('src');"
+    />    <div class="cv-sidebar-name reveal">TITIXA<br>KAMANI</div>
+    <div class="cv-sidebar-role reveal d1">Product Designer &amp; Developer</div>
+    <ul class="cv-sidebar-contact reveal d2">
+      <li><a href="mailto:titixakamani21@gmail.com">titixakamani21@gmail.com</a></li>
+      <li><a href="https://linkedin.com/in/titixakamani" target="_blank">LinkedIn</a></li>
+      <li>Berlin, Germany</li>
+    </ul>
+    <div class="cv-skills-label reveal d3">Core Skills</div>
+    <ul class="cv-skills-list reveal d3">
+      <li>UI/UX Design</li>
+      <li>User Research</li>
+      <li>Interaction Design</li>
+      <li>Prototyping</li>
+      <li>Design Systems</li>
+      <li>HTML / CSS / JS</li>
+      <li>Problem Solving</li>
+      <li>Usability Testing</li>
+    </ul>
+  </aside>
+
+  <main class="cv-main">
+
+    <div class="cv-section reveal">
+      <div class="cv-section-label">Work Experience</div>
+
+      <div class="cv-entry">
+        <div class="cv-entry-left">
+          <div class="cv-entry-company">Fressnapf</div>
+          <div class="cv-entry-role">SOFTWARE TEST ENGINEER <br> [Focused Product Design&Development]</div>
+          <div class="cv-entry-desc">Designed, built and maintained internal QA tool, automated front-end test cases across multiple products, reducing manual testing effort across the team.</div>
+        </div>
+        <div class="cv-entry-date">Present</div>
+      </div>
+
+      <div class="cv-entry">
+        <div class="cv-entry-left">
+          <div class="cv-entry-company">Crest Data Systems</div>
+          <div class="cv-entry-role">QA ENGINEER</div>
+          <div class="cv-entry-desc">Quality assurance engineering across a range of software products. Designed test strategies, identified critical issues, and collaborated closely with development teams.</div>
+        </div>
+        <div class="cv-entry-date">2022 — 2023</div>
+      </div>
+    </div>
+
+    <div class="cv-section reveal d1">
+      <div class="cv-section-label">Education</div>
+
+      <div class="cv-entry">
+        <div class="cv-entry-left">
+          <div class="cv-entry-company">Masters</div>
+          <div class="cv-entry-role">USABILITY ENGINEERING</div>
+          <div class="cv-entry-desc">Focused on human-computer interaction, UX research methods, interaction design, and user-centred design processes. Completing thesis.</div>
+        </div>
+        <div class="cv-entry-date">In Progress</div>
+      </div>
+
+      <div class="cv-entry">
+        <div class="cv-entry-left">
+          <div class="cv-entry-company">Bachelors</div>
+          <div class="cv-entry-role">COMPUTER SCIENCE</div>
+          <div class="cv-entry-desc">Foundation in software engineering, algorithms, data structures, and systems design. Built strong technical intuition that directly informs design decisions.</div>
+        </div>
+        <div class="cv-entry-date">2016 — 2020</div>
+      </div>
+    </div>
+
+    
+
+<footer id="tk-footer">
+  <span class="tk-footer-copy">© 2025 Titixa Kamani</span>
+  <ul class="tk-footer-links">
+    <li><a href="https://linkedin.com/in/titixakamani" target="_blank">LinkedIn</a></li>
+    <li><a href="mailto:titixakamani21@gmail.com">Email</a></li>
+    <li><button id="footer-contact-btn">Contact</button></li>
+  </ul>
+</footer>
+
+<!-- CONTACT POPUP -->
+<div class="tk-contact-overlay" id="contact-overlay">
+  <div class="tk-contact-popup">
+    <button class="tk-contact-close" id="contact-close">×</button>
+    <div class="tk-popup-title">LET'S TALK</div>
+    <div class="tk-popup-sub">Tell me about your project</div>
+    <div class="tk-cf-field"><input type="text" id="cf-name" placeholder="Your name"/></div>
+    <div class="tk-cf-field"><input type="email" id="cf-email" placeholder="Your email"/></div>
+    <div class="tk-cf-field"><textarea id="cf-message" placeholder="Your message" rows="3"></textarea></div>
+    <div class="tk-cf-row">
+      <button class="tk-cf-send" id="cf-send">SEND REQUEST</button>
+      <span class="tk-cf-privacy">by clicking send you accept the privacy policy</span>
+    </div>
+  </div>
+</div>
+
+<script>
+const bar=document.getElementById('tk-progress');
+window.addEventListener('scroll',()=>{const h=document.documentElement;bar.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+'%';},{passive:true});
+const nav=document.getElementById('tk-nav');
+window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',window.scrollY>60),{passive:true});
+const dot=document.getElementById('tk-cursor-dot'),ring=document.getElementById('tk-cursor-ring');
+let mx=0,my=0,rx=0,ry=0;
+window.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;dot.style.left=mx+'px';dot.style.top=my+'px';});
+(function lr(){rx+=(mx-rx)*.1;ry+=(my-ry)*.1;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(lr);})();
+document.querySelectorAll('a,button').forEach(el=>{el.addEventListener('mouseenter',()=>document.body.classList.add('tk-cur-link'));el.addEventListener('mouseleave',()=>document.body.classList.remove('tk-cur-link'));});
+const revEls=document.querySelectorAll('.reveal');
+const revObs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');revObs.unobserve(e.target);}});},{threshold:.1,rootMargin:'0px 0px -40px 0px'});
+revEls.forEach(el=>revObs.observe(el));
+const pageOut=document.getElementById('tk-page-out');
+document.querySelectorAll('a.back-link[href]').forEach(a=>{a.addEventListener('click',e=>{const href=a.getAttribute('href');if(href&&!href.startsWith('#')&&!href.startsWith('mailto')&&!href.startsWith('http')){e.preventDefault();pageOut.classList.add('active');setTimeout(()=>window.location.href=href,520);}});});
+const overlay=document.getElementById('contact-overlay');
+function openContact(){overlay.classList.add('active');}
+function closeContact(){overlay.classList.remove('active');}
+document.getElementById('nav-contact-btn').addEventListener('click',openContact);
+document.getElementById('footer-contact-btn').addEventListener('click',openContact);
+document.getElementById('contact-close').addEventListener('click',closeContact);
+overlay.addEventListener('click',e=>{if(e.target===overlay)closeContact();});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeContact();});
+document.getElementById('cf-send').addEventListener('click',()=>{const n=document.getElementById('cf-name').value.trim(),em=document.getElementById('cf-email').value.trim(),m=document.getElementById('cf-message').value.trim();if(!n||!em){alert('Please fill in your name and email.');return;}window.location.href='mailto:titixakamani21@gmail.com?subject='+encodeURIComponent('New enquiry from '+n)+'&body='+encodeURIComponent('Name: '+n+'\nEmail: '+em+'\n\n'+m);});
+</script>
+</body>
+</html>
