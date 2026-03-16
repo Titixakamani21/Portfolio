@@ -292,16 +292,39 @@ footer{border-top:1px solid var(--border);padding:1.8rem 2.5rem;display:flex;jus
   .hero-line,.hero-line-type{font-size:20vw;}
   .hero-photo{width:60%;}
   .project-row{grid-template-columns:1fr;}
+  .project-row-right{align-items:flex-start;}
+  #hero{padding-top:7.5rem;min-height:auto;padding-bottom:3rem;}
+  .hero-photo{position:relative;width:min(100%,520px);height:auto;order:-1;margin:0 auto 2rem;}
+  .hero-photo img,.hero-photo-fallback{aspect-ratio:4/5;height:auto;}
+  .hero-email,.hero-sub{position:relative;left:auto;top:auto;margin-left:1.5rem;}
+  .hero-email{display:inline-block;margin-bottom:1rem;}
+  .hero-type{padding-right:1.5rem;}
+  nav{padding:1rem 1.5rem;align-items:flex-start;gap:1rem;}
+  .nav-links{gap:1rem;flex-wrap:wrap;justify-content:flex-end;}
+  .stat-block:last-child{border-left:none;border-top:1px solid var(--border);}
+  #stats-strip{grid-template-columns:1fr;}
+  .process-step-row,.cf-footer{grid-template-columns:1fr;}
+  .contact-big-name{font-size:clamp(2.8rem,12vw,5rem);}
 }
 @media(max-width:560px){
-  .hero-photo{width:72%;}
-  nav{padding:1.2rem 1.5rem;}
+  .hero-photo{width:min(100%,360px);margin-bottom:1.5rem;}
+  nav{padding:0.95rem 1rem;}
   .nav-logo{font-size:1rem;}
-  .nav-links{gap:1.2rem;}
-  .nav-links a,.nav-links button{font-size:.88rem;}
-  .hero-email{top:5.4rem;left:1.5rem;font-size:1rem;}
-  .hero-type{padding-left:1.3rem;}
-  .hero-sub{margin-left:1.5rem;}
+  .nav-links{gap:.85rem;justify-content:flex-start;}
+  .nav-links a,.nav-links button{font-size:.8rem;}
+  #info,#works,#tools,.tools-strip-wrap,#contact,footer{padding-left:1rem;padding-right:1rem;}
+  .hero-email,.hero-sub{margin-left:1rem;}
+  .hero-type{padding-left:1rem;padding-right:1rem;margin-top:1rem;}
+  .hero-line,.hero-line-type{font-size:22vw;line-height:.9;}
+  .info-left,.info-right,.process-full-left,.process-full-right,.stat-block{padding-left:1rem;padding-right:1rem;}
+  .project-row{padding:1.2rem 0.9rem;}
+  .project-title{font-size:clamp(2.1rem,14vw,3.6rem);}
+  .project-desc{opacity:1;transform:none;}
+  .tools-strip-wrap{padding-top:2rem;padding-bottom:2rem;}
+  .tool-icon-item,.tool-icon-placeholder{width:88px;min-width:88px;max-width:88px;height:88px;}
+  .contact-popup{padding:2.2rem 1.2rem 1.5rem;}
+  .cf-send{width:100%;}
+  .cf-privacy{max-width:none;text-align:left;}
 }
 </style>
 </head>

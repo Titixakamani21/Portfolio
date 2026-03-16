@@ -874,6 +874,132 @@ h1, h2, h3 {
   .case-study-grid { grid-template-columns: 1fr; }
   .deco-circle-1 { width: 300px; height: 300px; }
   .deco-circle-2 { display: none; }
+  .philosophy-inner { gap: 2rem; }
+}
+
+@media (max-width: 760px) {
+  .site-header {
+    width: min(100% - 1.25rem, 1200px);
+    margin-top: 0.8rem;
+    top: 10px;
+    padding: 0.8rem 0.95rem;
+  }
+
+  .homepage h1 {
+    font-size: clamp(2.7rem, 14vw, 4.4rem);
+  }
+
+  main {
+    width: min(100% - 1.25rem, 1200px);
+    padding-bottom: 4rem;
+  }
+
+  .hero {
+    min-height: auto;
+    padding-top: 2rem;
+  }
+
+  .hero-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .hero-actions .btn {
+    width: 100%;
+  }
+
+  .marquee-wrap::before,
+  .marquee-wrap::after {
+    width: 56px;
+  }
+
+  .tools-row img {
+    width: 84px;
+    height: 84px;
+  }
+
+  .profile-layout,
+  .career-panel,
+  .case-study-section,
+  .contact {
+    margin-top: 4.5rem;
+  }
+
+  .about-panel p,
+  .contact-subtitle {
+    max-width: none;
+  }
+
+  .career-entry:hover {
+    padding-left: 0;
+  }
+
+  .case-study-card {
+    min-height: auto;
+    padding: 1.1rem;
+  }
+
+  .contact-form-footer {
+    align-items: stretch;
+  }
+
+  .contact-send-btn,
+  .btn,
+  .btn-small {
+    width: 100%;
+  }
+
+  .contact-privacy {
+    max-width: none;
+    text-align: left;
+  }
+
+  .cv-header,
+  .cv-item,
+  .persona-card,
+  .persona-right,
+  .outcomes-grid,
+  .solutions-grid,
+  .stats-grid,
+  .demo-grid,
+  .problem-cards,
+  .insights-grid,
+  .journey-insights,
+  .reflection-grid,
+  .research-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .cv-wrap,
+  .case-study-wrap {
+    width: min(100% - 1.25rem, 980px);
+  }
+
+  .cv-header {
+    align-items: flex-start;
+  }
+
+  .cv-item span {
+    display: block;
+    margin-top: 0.2rem;
+  }
+
+  .persona-left,
+  .persona-right {
+    padding: 1.4rem 1.2rem;
+  }
+
+  .persona-quote {
+    padding: 1rem 1rem 1rem 1.1rem;
+  }
+
+  .outcomes-grid {
+    gap: 1px;
+  }
+
+  .prototype-frame {
+    height: 500px;
+  }
 }
 
 /* ============================================================

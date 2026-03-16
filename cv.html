@@ -117,7 +117,28 @@ footer{border-top:1px solid var(--border);padding:1.8rem 2.5rem;display:flex;jus
 .cf-send:hover::before{transform:scaleX(1);}
 .cf-privacy{font-family:var(--sans);font-size:.7rem;color:var(--dim);line-height:1.5;max-width:160px;text-align:right;}
 
-@media(max-width:860px){body{cursor:auto;}#cursor-dot,#cursor-ring{display:none;}.cv-body{grid-template-columns:1fr;}.cv-sidebar{position:static;border-right:none;border-bottom:1px solid var(--border);}nav{padding:1.2rem 1.5rem;}.nav-links{gap:1.2rem;}}
+@media(max-width:860px){
+body{cursor:auto;}
+#cursor-dot,#cursor-ring{display:none;}
+.cv-body{grid-template-columns:1fr;}
+.cv-sidebar{position:static;border-right:none;border-bottom:1px solid var(--border);}
+nav{padding:1.2rem 1.5rem;flex-wrap:wrap;gap:1rem;align-items:flex-start;}
+.nav-links{gap:1.2rem;flex-wrap:wrap;}
+.cv-entry{grid-template-columns:1fr;}
+.cv-entry-date{white-space:normal;}
+.cv-download-wrap{align-items:flex-start;}
+}
+
+@media(max-width:560px){
+.cv-page-header,.cv-main,.cv-sidebar,footer{padding-left:1rem;padding-right:1rem;}
+.cv-page-title{font-size:clamp(3.6rem,21vw,6rem);}
+.cv-download-btn{width:100%;text-align:center;}
+.cv-download-note{max-width:28ch;}
+.cv-entry:hover{padding-left:0;}
+.contact-popup,.tk-contact-popup{padding:2rem 1.1rem 1.4rem;}
+.cf-send,.tk-cf-send{width:100%;}
+.cf-privacy,.tk-cf-privacy{max-width:none;text-align:left;}
+}
 </style>
 <style>
 /* ── TK SHARED NAV/FOOTER OVERRIDE ── */
@@ -166,7 +187,8 @@ body.tk-cur-link #tk-cursor-ring{width:60px;height:60px;border-color:rgba(224,58
 .tk-cf-send:hover{color:#e9e6e0;}
 .tk-cf-send:hover::before{transform:scaleX(1);}
 .tk-cf-privacy{font-family:'DM Sans',sans-serif;font-size:.67rem;color:rgba(224,58,14,.45);line-height:1.5;max-width:150px;text-align:right;}
-@media(max-width:768px){body{cursor:auto;}#tk-cursor-dot,#tk-cursor-ring{display:none;}#tk-nav{padding:1rem 1.5rem;}.tk-nav-links{gap:1.2rem;}}
+@media(max-width:768px){body{cursor:auto;}#tk-cursor-dot,#tk-cursor-ring{display:none;}#tk-nav{padding:1rem 1.5rem;flex-wrap:wrap;gap:.75rem;align-items:flex-start;}.tk-nav-links{gap:1.2rem;flex-wrap:wrap;}}
+@media(max-width:560px){#tk-nav,#tk-footer{padding-left:1rem;padding-right:1rem;}.tk-nav-links{gap:.85rem;}.tk-contact-popup{width:min(100vw - 1rem,520px);}}
 </style>
 </head>
 <body>
