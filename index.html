@@ -887,69 +887,92 @@ if(processRight){
 const overlay=document.getElementById('contact-overlay');
 function openContact(){overlay.classList.add('active');}
 function closeContact(){overlay.classList.remove('active');}
-document.getElementById('nav-contact-btn').addEventListener('click',openContact);
-document.getElementById('contact-section-btn').addEventListener('click',openContact);
-document.getElementById('footer-contact-btn').addEventListener('click',openContact);
-document.getElementById('contact-close').addEventListener('click',closeContact);
-overlay.addEventListener('click',e=>{if(e.target===overlay)closeContact();});
-document.addEventListener('keydown',e=>{if(e.key==='Escape')closeContact();});
 
-// Form submission handling
-const contactForm = document.getElementById('contact-form');
-const formStatus = document.getElementById('form-status');
+// Wait for DOM to be fully loaded
+document.addEventListener('DOMContentLoaded', function() {
+  // Popup triggers
+  const navContactBtn = document.getElementById('nav-contact-btn');
+  const contactSectionBtn = document.getElementById('contact-section-btn');
+  const footerContactBtn = document.getElementById('footer-contact-btn');
+  const contactCloseBtn = document.getElementById('contact-close');
+  
+  if (navContactBtn) navContactBtn.addEventListener('click', openContact);
+  if (contactSectionBtn) contactSectionBtn.addEventListener('click', openContact);
+  if (footerContactBtn) footerContactBtn.addEventListener('click', openContact);
+  if (contactCloseBtn) contactCloseBtn.addEventListener('click', closeContact);
+  
+  overlay.addEventListener('click', e => {if(e.target === overlay) closeContact();});
+  document.addEventListener('keydown', e => {if(e.key === 'Escape') closeContact();});
 
-contactForm.addEventListener('submit', async function(e) {
-  e.preventDefault();
-  
-  const submitButton = document.getElementById('cf-send');
-  const originalText = submitButton.textContent;
-  
-  // Show loading state
-  submitButton.textContent = 'SENDING...';
-  submitButton.disabled = true;
-  submitButton.style.opacity = '0.6';
-  formStatus.style.display = 'none';
-  
-  try {
-    const response = await fetch(contactForm.action, {
-      method: 'POST',
-      body: new FormData(contactForm),
-      headers: {
-        'Accept': 'application/json'
+  // Form submission handling
+  const contactForm = document.getElementById('contact-form');
+  const formStatus = document.getElementById('form-status');
+
+  if (contactForm) {
+    contactForm.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      
+      const submitButton = document.getElementById('cf-send');
+      const originalText = submitButton.textContent;
+      
+      console.log('Form submitted!'); // Debug log
+      
+      // Show loading state
+      submitButton.textContent = 'SENDING...';
+      submitButton.disabled = true;
+      submitButton.style.opacity = '0.6';
+      formStatus.style.display = 'none';
+      
+      try {
+        console.log('Sending to Formspree...'); // Debug log
+        
+        const response = await fetch(contactForm.action, {
+          method: 'POST',
+          body: new FormData(contactForm),
+          headers: {
+            'Accept': 'application/json'
+          }
+        });
+        
+        console.log('Response received:', response.status); // Debug log
+        
+        if (response.ok) {
+          // Success!
+          formStatus.style.display = 'block';
+          formStatus.style.backgroundColor = '#d4edda';
+          formStatus.style.color = '#155724';
+          formStatus.style.border = '1px solid #c3e6cb';
+          formStatus.innerHTML = '✓ Message sent successfully! I\'ll get back to you soon.';
+          contactForm.reset();
+          
+          // Close popup after 2 seconds
+          setTimeout(() => {
+            closeContact();
+            setTimeout(() => {
+              formStatus.style.display = 'none';
+            }, 400);
+          }, 2000);
+          
+        } else {
+          throw new Error('Form submission failed');
+        }
+      } catch (error) {
+        console.error('Form error:', error); // Debug log
+        // Error
+        formStatus.style.display = 'block';
+        formStatus.style.backgroundColor = '#f8d7da';
+        formStatus.style.color = '#721c24';
+        formStatus.style.border = '1px solid #f5c6cb';
+        formStatus.innerHTML = '✗ Oops! Something went wrong. Please try again or email me directly at titixakamani21@gmail.com';
+      } finally {
+        submitButton.textContent = originalText;
+        submitButton.disabled = false;
+        submitButton.style.opacity = '1';
       }
     });
-    
-    if (response.ok) {
-      // Success!
-      formStatus.style.display = 'block';
-      formStatus.style.backgroundColor = '#d4edda';
-      formStatus.style.color = '#155724';
-      formStatus.style.border = '1px solid #c3e6cb';
-      formStatus.innerHTML = '✓ Message sent successfully! I\'ll get back to you soon.';
-      contactForm.reset();
-      
-      // Close popup after 2 seconds
-      setTimeout(() => {
-        closeContact();
-        setTimeout(() => {
-          formStatus.style.display = 'none';
-        }, 400);
-      }, 2000);
-      
-    } else {
-      throw new Error('Form submission failed');
-    }
-  } catch (error) {
-    // Error
-    formStatus.style.display = 'block';
-    formStatus.style.backgroundColor = '#f8d7da';
-    formStatus.style.color = '#721c24';
-    formStatus.style.border = '1px solid #f5c6cb';
-    formStatus.innerHTML = '✗ Oops! Something went wrong. Please try again or email me directly at titixakamani21@gmail.com';
-  } finally {
-    submitButton.textContent = originalText;
-    submitButton.disabled = false;
-    submitButton.style.opacity = '1';
+  } else {
+    console.error('Contact form not found!'); // Debug log
   }
 });
 
