@@ -622,13 +622,25 @@ footer{border-top:1px solid var(--border);padding:1.8rem 2.5rem;display:flex;jus
     <button class="contact-close" id="contact-close">×</button>
     <div class="contact-popup-title">LET'S TALK</div>
     <div class="contact-popup-sub">Tell me about your project</div>
-    <div class="cf-field"><input type="text" id="cf-name" placeholder="Your name"/></div>
-    <div class="cf-field"><input type="email" id="cf-email" placeholder="Your email"/></div>
-    <div class="cf-field"><textarea id="cf-message" placeholder="Your message" rows="3"></textarea></div>
-    <div class="cf-footer">
-      <button class="cf-send" id="cf-send">SEND REQUEST</button>
-      <span class="cf-privacy">by clicking send you accept the privacy policy</span>
-    </div>
+    
+    <form id="contact-form" action="https://formspree.io/f/xjkvknvj" method="POST">
+      <div class="cf-field">
+        <input type="text" name="name" id="cf-name" placeholder="Your name" required/>
+      </div>
+      <div class="cf-field">
+        <input type="email" name="email" id="cf-email" placeholder="Your email" required/>
+      </div>
+      <div class="cf-field">
+        <textarea name="message" id="cf-message" placeholder="Your message" rows="3" required></textarea>
+      </div>
+      <div class="cf-footer">
+        <button type="submit" class="cf-send" id="cf-send">SEND REQUEST</button>
+        <span class="cf-privacy">by clicking send you accept the privacy policy</span>
+      </div>
+      
+      <!-- Success/Error Messages -->
+      <div id="form-status" style="display: none; margin-top: 20px; padding: 15px; border-radius: 4px; font-family: var(--sans); font-size: 0.9rem; text-align: center;"></div>
+    </form>
   </div>
 </div>
 
@@ -881,12 +893,64 @@ document.getElementById('footer-contact-btn').addEventListener('click',openConta
 document.getElementById('contact-close').addEventListener('click',closeContact);
 overlay.addEventListener('click',e=>{if(e.target===overlay)closeContact();});
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeContact();});
-document.getElementById('cf-send').addEventListener('click',()=>{
-  const n=document.getElementById('cf-name').value.trim(),
-        em=document.getElementById('cf-email').value.trim(),
-        m=document.getElementById('cf-message').value.trim();
-  if(!n||!em){alert('Please fill in your name and email.');return;}
-  window.location.href='mailto:titixakamani21@gmail.com?subject='+encodeURIComponent('New enquiry from '+n)+'&body='+encodeURIComponent('Name: '+n+'\nEmail: '+em+'\n\n'+m);
+
+// Form submission handling
+const contactForm = document.getElementById('contact-form');
+const formStatus = document.getElementById('form-status');
+
+contactForm.addEventListener('submit', async function(e) {
+  e.preventDefault();
+  
+  const submitButton = document.getElementById('cf-send');
+  const originalText = submitButton.textContent;
+  
+  // Show loading state
+  submitButton.textContent = 'SENDING...';
+  submitButton.disabled = true;
+  submitButton.style.opacity = '0.6';
+  formStatus.style.display = 'none';
+  
+  try {
+    const response = await fetch(contactForm.action, {
+      method: 'POST',
+      body: new FormData(contactForm),
+      headers: {
+        'Accept': 'application/json'
+      }
+    });
+    
+    if (response.ok) {
+      // Success!
+      formStatus.style.display = 'block';
+      formStatus.style.backgroundColor = '#d4edda';
+      formStatus.style.color = '#155724';
+      formStatus.style.border = '1px solid #c3e6cb';
+      formStatus.innerHTML = '✓ Message sent successfully! I\'ll get back to you soon.';
+      contactForm.reset();
+      
+      // Close popup after 2 seconds
+      setTimeout(() => {
+        closeContact();
+        setTimeout(() => {
+          formStatus.style.display = 'none';
+        }, 400);
+      }, 2000);
+      
+    } else {
+      throw new Error('Form submission failed');
+    }
+  } catch (error) {
+    // Error
+    formStatus.style.display = 'block';
+    formStatus.style.backgroundColor = '#f8d7da';
+    formStatus.style.color = '#721c24';
+    formStatus.style.border = '1px solid #f5c6cb';
+    formStatus.innerHTML = '✗ Oops! Something went wrong. Please try again or email me directly at titixakamani21@gmail.com';
+  } finally {
+    submitButton.textContent = originalText;
+    submitButton.disabled = false;
+    submitButton.style.opacity = '1';
+  }
 });
 
 /* ── SMOOTH ANCHORS ── */
