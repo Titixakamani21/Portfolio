@@ -1338,8 +1338,8 @@ td.jm-opp-col .jm-cell-inner { background: rgba(197, 237, 232, 0.2); }
 .prototype-open-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 14px rgba(122, 161, 61, 0.22); }
 @media (max-width: 760px) {
   .prototype-desc { margin-bottom: 1rem; }
-  .prototype-frame-wrap { width: min(100%, 240px); margin: 0 auto; border-radius: 20px; }
-  .prototype-frame { height: 360px; }
+  .prototype-frame-wrap { width: min(100%, 250px); margin: 0 auto; border-radius: 20px; }
+  .prototype-frame { height: 560px; }
   .prototype-actions { justify-content: center; }
 }
 
