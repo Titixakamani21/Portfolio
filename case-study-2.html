@@ -679,6 +679,38 @@
       .pb-home-phone,
       .pb-charity-groups .pb-home-phone,
       .pb-charity-prev .pb-home-phone { max-width: 180px; }
+      #design .pb-section-head {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        padding-bottom: 0.25rem;
+      }
+      #design .pb-section-head h2 {
+        min-width: max-content;
+        white-space: nowrap;
+      }
+      #design .pb-sol-grid {
+        display: flex;
+        gap: 0.9rem;
+        overflow-x: auto;
+        padding: 0 0 0.35rem;
+        margin-left: -1rem;
+        margin-right: -1rem;
+        padding-left: 1rem;
+        padding-right: 1rem;
+        scroll-snap-type: x proximity;
+        -webkit-overflow-scrolling: touch;
+      }
+      #design .pb-sol-grid::after {
+        content: none;
+      }
+      #design .pb-sol-card {
+        flex: 0 0 82vw;
+        min-width: 82vw;
+        scroll-snap-align: start;
+      }
+      #design .pb-sol-img {
+        width: 100%;
+      }
       .pb-hero-badge {
         position: static;
         margin-top: 1rem;
