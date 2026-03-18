@@ -307,16 +307,24 @@ body.tk-cur-link #tk-cursor-ring{width:60px;height:60px;border-color:rgba(224,58
 
 <!-- CONTACT POPUP -->
 <div class="tk-contact-overlay" id="contact-overlay">
-  <div class="tk-contact-popup">
-    <button class="tk-contact-close" id="contact-close">×</button>
+  <div class="tk-contact-popup" id="contact-popup">
+    <button class="tk-contact-close" id="contact-close" type="button">×</button>
     <div class="tk-popup-title">LET'S TALK</div>
     <div class="tk-popup-sub">Tell me about your project</div>
-    <div class="tk-cf-field"><input type="text" id="cf-name" placeholder="Your name"/></div>
-    <div class="tk-cf-field"><input type="email" id="cf-email" placeholder="Your email"/></div>
-    <div class="tk-cf-field"><textarea id="cf-message" placeholder="Your message" rows="3"></textarea></div>
-    <div class="tk-cf-row">
-      <button class="tk-cf-send" id="cf-send">SEND REQUEST</button>
-      <span class="tk-cf-privacy">by clicking send you accept the privacy policy</span>
+    <form id="contact-form" action="https://api.web3forms.com/submit" method="POST">
+      <input type="hidden" name="access_key" value="17652a02-c795-4be3-95cd-86cd66dabe81">
+      <input type="hidden" name="redirect" value="https://titixakamani21.github.io/Portfolio/cv.html?success=true">
+      <div class="tk-cf-field"><input type="text" name="name" id="cf-name" placeholder="Your name" required/></div>
+      <div class="tk-cf-field"><input type="email" name="email" id="cf-email" placeholder="Your email" required/></div>
+      <div class="tk-cf-field"><textarea name="message" id="cf-message" placeholder="Your message" rows="3" required></textarea></div>
+      <div class="tk-cf-row">
+        <button class="tk-cf-send" id="cf-send" type="submit">SEND REQUEST</button>
+        <span class="tk-cf-privacy">by clicking send you accept the privacy policy</span>
+      </div>
+    </form>
+    <div id="success-message" style="display:none; text-align:center; padding:1.5rem 0;">
+      <div class="tk-popup-title">THANK YOU</div>
+      <div class="tk-popup-sub">Your request was sent successfully.</div>
     </div>
   </div>
 </div>
@@ -337,14 +345,19 @@ revEls.forEach(el=>revObs.observe(el));
 const pageOut=document.getElementById('tk-page-out');
 document.querySelectorAll('a.back-link[href]').forEach(a=>{a.addEventListener('click',e=>{const href=a.getAttribute('href');if(href&&!href.startsWith('#')&&!href.startsWith('mailto')&&!href.startsWith('http')){e.preventDefault();pageOut.classList.add('active');setTimeout(()=>window.location.href=href,520);}});});
 const overlay=document.getElementById('contact-overlay');
-function openContact(){overlay.classList.add('active');}
+const contactPopup=document.getElementById('contact-popup');
+const contactForm=document.getElementById('contact-form');
+const successMessage=document.getElementById('success-message');
+function openContact(){overlay.classList.add('active');contactForm.style.display='block';successMessage.style.display='none';}
 function closeContact(){overlay.classList.remove('active');}
 document.getElementById('nav-contact-btn').addEventListener('click',openContact);
 document.getElementById('footer-contact-btn').addEventListener('click',openContact);
 document.getElementById('contact-close').addEventListener('click',closeContact);
 overlay.addEventListener('click',e=>{if(e.target===overlay)closeContact();});
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeContact();});
-document.getElementById('cf-send').addEventListener('click',()=>{const n=document.getElementById('cf-name').value.trim(),em=document.getElementById('cf-email').value.trim(),m=document.getElementById('cf-message').value.trim();if(!n||!em){alert('Please fill in your name and email.');return;}window.location.href='mailto:titixakamani21@gmail.com?subject='+encodeURIComponent('New enquiry from '+n)+'&body='+encodeURIComponent('Name: '+n+'\nEmail: '+em+'\n\n'+m);});
+if(contactForm){contactForm.addEventListener('submit',function(){const submitButton=document.getElementById('cf-send');submitButton.textContent='SENDING...';submitButton.disabled=true;submitButton.style.opacity='0.6';});}
+const urlParams=new URLSearchParams(window.location.search);
+if(urlParams.get('success')==='true'){openContact();contactForm.style.display='none';successMessage.style.display='block';}
 </script>
 </body>
 </html>
