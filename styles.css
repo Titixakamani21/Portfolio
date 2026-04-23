@@ -1348,3 +1348,12 @@ td.jm-opp-col .jm-cell-inner { background: rgba(197, 237, 232, 0.2); }
 .case-floating-nav a { text-decoration: none; color: #654f5a; font-family: 'Inter', sans-serif; font-size: 0.76rem; font-weight: 700; padding: 0.42rem 0.72rem; border-radius: 999px; transition: background 0.2s ease, color 0.2s ease; white-space: nowrap; }
 .case-floating-nav a:hover { background: #f3e8ef; color: #2f2430; }
 @media (max-width: 760px) { .case-floating-nav { display: none; } }
+
+/* ── CV SECTION RESPONSIVE ── */
+@media(max-width:860px){
+  #cv { grid-template-columns: 1fr !important; }
+  #cv > div:first-child { border-right: none !important; border-bottom: 1px solid var(--border); }
+}
+@media(max-width:560px){
+  #cv > div { padding-left: 1rem !important; padding-right: 1rem !important; }
+}
