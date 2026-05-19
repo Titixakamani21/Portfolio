@@ -1138,13 +1138,18 @@ h1, h2, h3 {
 }
 .cs-back-bar .logo-text strong { font-size: 1rem; }
 .cs-back-btn {
-  display: inline-flex; align-items: center; gap: 0.35rem; height: 36px; padding: 0 1rem;
-  border-radius: 999px; background: #fff7fb; color: #6f5763;
-  border: 1px solid rgba(206, 181, 190, 0.36);
-  font-family: "Manrope", sans-serif; font-size: 0.82rem; font-weight: 700;
-  text-decoration: none; transition: transform 0.22s ease, background 0.22s ease;
+  display: inline-flex; align-items: center; gap: 0.35rem;
+  position: relative; padding: 0; border: 0; border-radius: 0; background: none;
+  color: #e03a0e; font-family: "DM Sans", sans-serif;
+  font-size: clamp(1rem, 1.15vw, 1.22rem); font-weight: 500;
+  text-decoration: none; transition: opacity 0.2s;
 }
-.cs-back-btn:hover { background: #fff1f7; transform: translateY(-1px); }
+.cs-back-btn::after {
+  content: ""; position: absolute; bottom: -3px; left: 0; width: 0; height: 1px;
+  background: #e03a0e; transition: width 0.35s var(--ease-out);
+}
+.cs-back-btn:hover { opacity: 0.7; }
+.cs-back-btn:hover::after { width: 100%; }
 
 .cs-hero { width: min(980px, 92%); margin: 2rem auto 0; }
 .cs-hero img { width: 100%; border-radius: 12px; display: block; border: 1px solid rgba(191, 167, 177, 0.18); }

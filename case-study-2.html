@@ -6,7 +6,7 @@
   <title>Case Study 02 | PfandBank</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -59,12 +59,17 @@
     }
     .pb-back-btn {
       display: inline-flex; align-items: center; gap: 0.35rem;
-      height: 36px; padding: 0 1rem; border-radius: 999px;
-      background: var(--pb-ghost); color: var(--pb-mid);
-      font-family: var(--pb-font-h); font-size: 0.82rem; font-weight: 700;
-      text-decoration: none; transition: all 0.22s var(--pb-ease);
+      position: relative; padding: 0; border: 0; border-radius: 0; background: none;
+      color: #e03a0e; font-family: 'DM Sans', sans-serif;
+      font-size: clamp(1rem, 1.15vw, 1.22rem); font-weight: 500;
+      text-decoration: none; transition: opacity 0.2s;
     }
-    .pb-back-btn:hover { background: var(--pb-pale); transform: translateY(-1px); }
+    .pb-back-btn::after {
+      content: ""; position: absolute; bottom: -3px; left: 0; width: 0; height: 1px;
+      background: #e03a0e; transition: width 0.35s var(--pb-ease);
+    }
+    .pb-back-btn:hover { opacity: 0.7; }
+    .pb-back-btn:hover::after { width: 100%; }
 
     .pb-floating-nav {
       position: fixed; top: 4.6rem; left: 50%; transform: translateX(-50%);
@@ -658,7 +663,7 @@
       .pb-proto-frame { width: min(100%, 360px); height: 700px; }
       .pb-floating-nav { display: none; }
       .pb-topbar { padding: 0.75rem 1rem; }
-      .pb-back-btn { font-size: 0.74rem; padding: 0 0.8rem; }
+      .pb-back-btn { font-size: 0.95rem; padding: 0; }
       .pb-hero,
       .pb-section,
       .pb-outcomes,
@@ -724,7 +729,7 @@
 <div class="pb-progress" id="pb-progress"></div>
 
 <header class="pb-topbar">
-  <span class="logo-text"><strong>T. Kamani</strong></span>
+  <span class="logo-text"><strong>TITIXA KAMANI</strong></span>
   <a class="pb-back-btn" href="index.html#works">&#8592; Back to Work</a>
 </header>
 <nav class="pb-floating-nav" aria-label="Case Study Navigation">
@@ -747,7 +752,7 @@
       <p class="pb-hero-sub pb-reveal pb-reveal-d2">A fintech mobile app that digitises Germany's bottle deposit system, replacing lost paper receipts with seamless digital payouts, smart savings, and effortless charitable giving.</p>
       <div class="pb-meta-row pb-reveal pb-reveal-d3">
         <div class="pb-meta-chip"><label>Role</label><span>Lead Product Designer</span></div>
-        <div class="pb-meta-chip"><label>Timeline</label><span>3 Monthsr</span></div>
+        <div class="pb-meta-chip"><label>Timeline</label><span>3 Months</span></div>
         <div class="pb-meta-chip"><label>Tools</label><span>Figma · Notion</span></div>
       </div>
     </div>
