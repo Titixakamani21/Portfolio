@@ -31,7 +31,7 @@ a{text-decoration:none;color:inherit}
 .nav-back:hover{opacity:.65}
 
 /* FLOATING NAV */
-.float-nav{position:fixed;top:68px;left:50%;transform:translateX(-50%);z-index:99;display:flex;gap:4px;padding:6px;background:rgba(250,246,240,0.92);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-radius:999px;box-shadow:0 8px 28px rgba(42,23,9,0.12);border:1px solid rgba(200,116,42,0.12);white-space:nowrap;}
+.float-nav{position:fixed;top:68px;left:50%;transform:translateX(-50%);z-index:99;display:flex;gap:4px;padding:6px;background:rgba(250,246,240,0.92);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-radius:999px;box-shadow:0 8px 28px rgba(42,23,9,0.12);border:1px solid rgba(200,116,42,0.12);white-space:nowrap; margin-top: 20px;}
 .float-nav a{text-decoration:none;color:rgba(42,23,9,0.55);font-family:var(--sans);font-size:11px;font-weight:600;letter-spacing:0.06em;padding:6px 14px;border-radius:999px;transition:background .2s,color .2s;}
 .float-nav a:hover{background:rgba(200,116,42,0.1);color:var(--copper);}
 .float-nav a.active{background:var(--copper);color:var(--char);}
@@ -470,7 +470,7 @@ section{padding:120px 48px}
 
 <!-- NEXT CASE STUDY -->
 <div class="next-case">
-  <a href="case-study-4.html" class="next-case-inner" style="display:none;" >
+  <a href="case-study-4.html" class="next-case-inner" >
     <div>
       <div class="next-label">Next Case Study</div>
       <div class="next-title">Soumya Glow</div>
@@ -482,11 +482,6 @@ section{padding:120px 48px}
 </div>
 
 <!-- FOOTER -->
-<footer class="footer">
-  <span>© 2026 <a href="#">Titikxa Kamani</a></span>
-  <span>Clay Oven by Sharma — Case Study</span>
-  <span>Design & Development · Berlin</span>
-</footer>
 
 <script>
 const obs = new IntersectionObserver(entries => {
