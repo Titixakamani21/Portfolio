@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Case Study 02 | PfandBank</title>
+  <title>Case Study | PfandBank</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -32,6 +32,7 @@
       --pb-font-d: 'DM Serif Display', serif;
       --pb-font-h: 'Satoshi', sans-serif;
       --pb-font-b: 'Inter', sans-serif;
+      --cs-accent: #0D7FB3;
       background: var(--pb-white);
       color: var(--pb-ink);
       font-family: var(--pb-font-b);
@@ -45,47 +46,13 @@
       z-index: 200; transition: width 0.08s linear;
     }
 
-    .pb-topbar {
-      position: sticky; top: 0; z-index: 100;
-      display: flex; justify-content: space-between; align-items: center;
-      padding: 0.85rem clamp(1rem,5vw,3rem);
-      background: rgba(255,255,255,0.88);
-      backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
-      transition: box-shadow 0.3s;
-    }
-    .pb-topbar .logo-text strong {
-      font-family: var(--pb-font-h); font-size: 0.95rem; font-weight: 700;
-      color: var(--pb-ink); letter-spacing: 0.02em;
-    }
-    .pb-back-btn {
-      display: inline-flex; align-items: center; gap: 0.35rem;
-      position: relative; padding: 0; border: 0; border-radius: 0; background: none;
-      color: #e03a0e; font-family: 'DM Sans', sans-serif;
-      font-size: clamp(1rem, 1.15vw, 1.22rem); font-weight: 500;
-      text-decoration: none; transition: opacity 0.2s;
-    }
-    .pb-back-btn::after {
-      content: ""; position: absolute; bottom: -3px; left: 0; width: 0; height: 1px;
-      background: #e03a0e; transition: width 0.35s var(--pb-ease);
-    }
-    .pb-back-btn:hover { opacity: 0.7; }
-    .pb-back-btn:hover::after { width: 100%; }
-
-    .pb-floating-nav {
-      position: fixed; top: 4.6rem; left: 50%; transform: translateX(-50%);
-      z-index: 160; display: flex; gap: 0.45rem; padding: 0.45rem;
-      background: rgba(255,255,255,0.82);
-      backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
-      border-radius: 999px; box-shadow: 0 8px 28px rgba(10,40,60,0.14);
-      border: 1px solid rgba(130,216,255,0.22);
-    }
-    .pb-floating-nav a {
-      text-decoration: none; color: var(--pb-ink-mid);
-      font-family: var(--pb-font-h); font-size: 0.76rem; font-weight: 700;
-      padding: 0.42rem 0.72rem; border-radius: 999px;
-      transition: background 0.2s var(--pb-ease), color 0.2s var(--pb-ease); white-space: nowrap;
-    }
-    .pb-floating-nav a:hover { background: var(--pb-pale); color: var(--pb-core); }
+    .cs-topbar { position: sticky; top: 0; z-index: 200; display: flex; justify-content: space-between; align-items: center; padding: 0.8rem clamp(1.2rem, 4vw, 3rem); background: rgba(255, 255, 255, 0.92); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); transition: box-shadow 0.3s; }
+    .cs-topbar-logo { font-family: 'Satoshi', sans-serif; font-size: 0.88rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: #1a1a1a; text-decoration: none; }
+    .cs-back-btn { display: inline-flex; align-items: center; gap: 0.4rem; height: 34px; padding: 0 0.9rem; border-radius: 999px; background: color-mix(in srgb, var(--cs-accent) 10%, transparent); color: var(--cs-accent); font-family: 'Satoshi', sans-serif; font-size: 0.78rem; font-weight: 700; text-decoration: none; transition: all 0.22s cubic-bezier(0.22, 1, 0.36, 1); }
+    .cs-back-btn:hover { background: color-mix(in srgb, var(--cs-accent) 25%, transparent); transform: translateY(-1px); }
+    .cs-float-nav { position: fixed; top: 4.4rem; left: 50%; transform: translateX(-50%); z-index: 190; display: flex; gap: 0.3rem; padding: 0.35rem; background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-radius: 999px; box-shadow: 0 6px 24px rgba(0, 0, 0, 0.08); border: 1px solid rgba(0, 0, 0, 0.06); }
+    .cs-float-nav a { text-decoration: none; color: #6a6a6a; font-family: 'Satoshi', sans-serif; font-size: 0.72rem; font-weight: 700; padding: 0.38rem 0.65rem; border-radius: 999px; transition: background 0.2s, color 0.2s; white-space: nowrap; }
+    .cs-float-nav a:hover { background: color-mix(in srgb, var(--cs-accent) 15%, transparent); color: var(--cs-accent); }
 
     .pb-reveal {
       opacity: 0; transform: translateY(32px);
@@ -158,14 +125,14 @@
     }
     .pb-hero-text h1 em { font-style: italic; color: var(--pb-core); }
     .pb-hero-sub { font-size: 1rem; color: var(--pb-ink-muted); line-height: 1.75; max-width: 44ch; margin-bottom: 2rem; }
-    .pb-meta-row {
+    .cs-meta-row {
       display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
+      grid-template-columns: repeat(4, minmax(0, 1fr));
       gap: 1.5rem 1.8rem;
       max-width: 760px;
       align-items: start;
     }
-    .pb-meta-chip {
+    .cs-meta-chip {
       background: transparent;
       backdrop-filter: none;
       border-radius: 0;
@@ -174,11 +141,11 @@
       flex-direction: column;
       gap: 0.15rem;
     }
-    .pb-meta-chip label {
+    .cs-meta-chip label {
       font-family: var(--pb-font-h); font-size: 0.58rem; font-weight: 700;
       letter-spacing: 0.14em; text-transform: uppercase; color: var(--pb-core);
     }
-    .pb-meta-chip span { font-family: var(--pb-font-h); font-size: 0.85rem; font-weight: 600; color: var(--pb-ink); }
+    .cs-meta-chip span { font-family: var(--pb-font-h); font-size: 0.85rem; font-weight: 600; color: var(--pb-ink); }
     .pb-hero-visual { position: relative; display: flex; justify-content: center; align-items: flex-start; }
     .pb-hero-mockup {
       width: min(100%, 420px); aspect-ratio: auto; background: transparent;
@@ -613,32 +580,31 @@
     .pb-next-steps strong { color: var(--pb-core); font-family: var(--pb-font-h); }
     .pb-next-steps p { font-size: 0.88rem; color: var(--pb-ink-muted); line-height: 1.78; margin: 0; }
 
-    .pb-next-cs { background: var(--pb-pale); padding: 2.8rem clamp(1rem,5vw,3rem); }
-    .pb-next-cs-inner {
+    .cs-next { background: color-mix(in srgb, var(--cs-accent) 16%, white); padding: 2.8rem clamp(1rem,5vw,3rem); }
+    .cs-next-inner {
       max-width: 1060px; margin: 0 auto;
       display: flex; justify-content: space-between; align-items: center; gap: 1rem;
     }
-    .pb-next-label {
+    .cs-next-label {
       font-family: var(--pb-font-h); font-size: 0.65rem; font-weight: 700;
       letter-spacing: 0.14em; text-transform: uppercase; color: var(--pb-core);
       display: block; margin-bottom: 0.3rem;
     }
-    .pb-next-title {
+    .cs-next-title {
       font-family: var(--pb-font-d); font-size: clamp(1.3rem,2.8vw,2.2rem);
-      font-weight: 400; color: var(--pb-deep); letter-spacing: -0.015em; display: block;
+      font-weight: 400; color: var(--cs-accent); letter-spacing: -0.015em; display: block;
     }
-    .pb-next-arrow {
-      width: 50px; height: 50px; background: var(--pb-mid); border-radius: 50%;
+    .cs-next-arrow {
+      width: 50px; height: 50px; background: var(--cs-accent); border-radius: 50%;
       display: flex; align-items: center; justify-content: center;
       color: #fff; font-size: 1.1rem; text-decoration: none;
       transition: transform 0.25s var(--pb-ease), background 0.25s; flex-shrink: 0;
     }
-    .pb-next-arrow:hover { transform: scale(1.1); background: var(--pb-core); }
+    .cs-next-arrow:hover { transform: scale(1.1); background: color-mix(in srgb, var(--cs-accent) 82%, black); }
 
     @media (max-width: 820px) {
-      .pb-topbar { gap: 0.75rem; align-items: flex-start; }
       .pb-hero-grid { grid-template-columns: 1fr; gap: 2rem; }
-      .pb-meta-row { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .cs-meta-row { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .pb-hero-badge { right: 0; bottom: -0.5rem; }
       .pb-problem-grid, .pb-insights-grid, .pb-ji-grid, .pb-ref-grid, .pb-ds-grid { grid-template-columns: 1fr; }
       .pb-two-col { grid-template-columns: 1fr; gap: 2rem; }
@@ -652,22 +618,20 @@
       .pb-charity-groups { grid-template-columns: 1fr; }
       .pb-sdg-grid { grid-template-columns: 1fr; }
       .pb-outcomes-grid { grid-template-columns: repeat(2,1fr); }
-      .pb-next-cs-inner { flex-direction: column; align-items: flex-start; gap: 1.5rem; }
+      .cs-next-inner { flex-direction: column; align-items: flex-start; gap: 1.5rem; }
       .pb-proto-actions { justify-content: flex-start; }
     }
     @media (max-width: 480px) {
-      .pb-meta-row { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem 1.1rem; }
-      .pb-meta-chip span { font-size: 0.78rem; }
+      .cs-meta-row { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem 1.1rem; }
+      .cs-meta-chip span { font-size: 0.78rem; }
       .pb-outcomes-grid { grid-template-columns: 1fr; }
       .pb-demo-grid { grid-template-columns: 1fr; }
       .pb-proto-frame { width: min(100%, 360px); height: 700px; }
-      .pb-floating-nav { display: none; }
-      .pb-topbar { padding: 0.75rem 1rem; }
-      .pb-back-btn { font-size: 0.95rem; padding: 0; }
+      .cs-float-nav { display: none; }
       .pb-hero,
       .pb-section,
       .pb-outcomes,
-      .pb-next-cs { padding-left: 1rem; padding-right: 1rem; }
+      .cs-next { padding-left: 1rem; padding-right: 1rem; }
       .pb-hero-sub,
       .pb-sub-desc,
       .pb-proto-desc { font-size: 0.95rem; }
@@ -728,10 +692,11 @@
 
 <div class="pb-progress" id="pb-progress"></div>
 
-<header class="pb-topbar">
-  <a class="pb-back-btn" href="index.html#works" style="color:#0d7fb3;">&#8592; Back</a>
+<header class="cs-topbar">
+  <a href="index.html" class="cs-topbar-logo">Titixa Kamani</a>
+  <a class="cs-back-btn" href="index.html#case-studies">← Back to Work</a>
 </header>
-<nav class="pb-floating-nav" aria-label="Case Study Navigation">
+<nav class="cs-float-nav" aria-label="Case Study Navigation">
   <a href="#overview">Overview</a>
   <a href="#problem">Problem</a>
   <a href="#research">Research</a>
@@ -749,10 +714,11 @@
       <span class="pb-pill pb-reveal">&#128241; Case Study 02 . Mobile App</span>
       <h1 class="pb-reveal pb-reveal-d1">PfandBank<br/><em>Reimagining</em><br/>Bottle Returns</h1>
       <p class="pb-hero-sub pb-reveal pb-reveal-d2">A fintech mobile app that digitises Germany's bottle deposit system, replacing lost paper receipts with seamless digital payouts, smart savings, and effortless charitable giving.</p>
-      <div class="pb-meta-row pb-reveal pb-reveal-d3">
-        <div class="pb-meta-chip"><label>Role</label><span>UI/UX Designer</span></div>
-        <div class="pb-meta-chip"><label>Timeline</label><span>3 Months</span></div>
-        <div class="pb-meta-chip"><label>Tools</label><span>Figma · Notion</span></div>
+      <div class="cs-meta-row pb-reveal pb-reveal-d3">
+        <div class="cs-meta-chip"><label>Role</label><span>UI/UX Designer</span></div>
+        <div class="cs-meta-chip"><label>Timeline</label><span>3 Months</span></div>
+        <div class="cs-meta-chip"><label>Tools</label><span>Figma · Notion</span></div>
+        <div class="cs-meta-chip"><label>Platform</label><span>Mobile App</span></div>
       </div>
     </div>
     <div class="pb-hero-visual pb-reveal pb-reveal-d2">
@@ -1087,10 +1053,10 @@
   </div>
 </section>
 
-<div class="pb-next-cs">
-  <div class="pb-next-cs-inner">
-    <div><span class="pb-next-label">Next Case Study</span><span class="pb-next-title">Eco-Travel Aid</span></div>
-    <a href="case-study-1.html" class="pb-next-arrow" aria-label="Go to Eco-Travel Aid">&#8594;</a>
+<div class="cs-next">
+  <div class="cs-next-inner">
+    <div><span class="cs-next-label">Next Case Study</span><span class="cs-next-title">Eco-travel Aid</span></div>
+    <a href="eco-travel-aid.html" class="cs-next-arrow" aria-label="Go to Eco-travel Aid">→</a>
   </div>
 </div>
 
@@ -1103,8 +1069,8 @@ document.querySelectorAll('[data-insight]').forEach(c=>{c.querySelector('.pb-ins
 const ff=document.getElementById('pb-frust-fill');
 const pO=new IntersectionObserver(e=>{e.forEach(el=>{if(el.isIntersecting){setTimeout(()=>{ff.style.width='78%';},350);pO.unobserve(el.target);}});},{threshold:0.4});
 const pc=document.querySelector('.pb-persona');if(pc)pO.observe(pc);
-const tb=document.querySelector('.pb-topbar');
-window.addEventListener('scroll',()=>{tb.style.boxShadow=window.scrollY>10?'0 2px 20px rgba(10,40,60,0.08)':'none';},{passive:true});
+const tb=document.querySelector('.cs-topbar');
+window.addEventListener('scroll',()=>{if(tb) tb.style.boxShadow=window.scrollY>10?'0 2px 20px rgba(10,40,60,0.08)':'none';},{passive:true});
 </script>
 
 </body>

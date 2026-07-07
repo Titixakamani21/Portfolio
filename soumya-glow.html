@@ -3,10 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Soumya Glow — Case Study</title>
+  <title>Case Study | Soumya Glow</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=Noto+Serif+Devanagari:wght@400;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -20,6 +21,7 @@
       --dark: #1c1f17;
       --text: #3a3830;
       --text-muted: #7a7670;
+      --cs-accent: #6B6340;
     }
 
     html { scroll-behavior: smooth; }
@@ -27,73 +29,20 @@
     body {
       background: var(--cream);
       color: var(--text);
-      font-family: 'DM Sans', sans-serif;
+      font-family: 'Inter', sans-serif;
       font-weight: 300;
       line-height: 1.75;
       -webkit-font-smoothing: antialiased;
     }
 
     /* ── BACK BAR ── */
-    .cs-back-bar {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 200;
-      height: 48px;
-      background: rgba(250,248,244,0.95);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid rgba(184,154,90,0.15);
-      display: flex;
-      align-items: center;
-      padding: 0 2rem;
-    }
-
-    .cs-back-btn {
-      font-size: 0.78rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--olive);
-      text-decoration: none;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      transition: gap 0.2s ease;
-    }
-
-    .cs-back-btn:hover { gap: 0.75rem; }
-
-
-    /* ── FLOATING NAV ── */
-    .case-floating-nav {
-      position: fixed;
-      top: 60px;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 100;
-      display: flex;
-      gap: 0;
-      background: rgba(250,248,244,0.96);
-      backdrop-filter: blur(12px);
-      border: 1px solid rgba(184,154,90,0.18);
-      border-top: 1px solid rgba(184,154,90,0.18);
-      border-radius: 999px;
-      margin-top: 20px;
-    }
-
-    .case-floating-nav a {
-      font-size: 0.68rem;
-      letter-spacing: 0.13em;
-      text-transform: uppercase;
-      color: var(--text-muted);
-      text-decoration: none;
-      padding: 0.6rem 1.2rem;
-      border-right: 1px solid rgba(184,154,90,0.15);
-      transition: color 0.2s, background 0.2s;
-      white-space: nowrap;
-    }
-
-    .case-floating-nav a:last-child { border-right: none; }
-    .case-floating-nav a:hover { color: var(--olive); background: rgba(74,90,46,0.05); }
-    .case-floating-nav a.active { color: var(--olive); font-weight: 500; }
+    .cs-topbar { position: sticky; top: 0; z-index: 200; display: flex; justify-content: space-between; align-items: center; padding: 0.8rem clamp(1.2rem, 4vw, 3rem); background: rgba(255, 255, 255, 0.92); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); transition: box-shadow 0.3s; }
+    .cs-topbar-logo { font-family: 'Satoshi', sans-serif; font-size: 0.88rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: #1a1a1a; text-decoration: none; }
+    .cs-back-btn { display: inline-flex; align-items: center; gap: 0.4rem; height: 34px; padding: 0 0.9rem; border-radius: 999px; background: color-mix(in srgb, var(--cs-accent) 10%, transparent); color: var(--cs-accent); font-family: 'Satoshi', sans-serif; font-size: 0.78rem; font-weight: 700; text-decoration: none; transition: all 0.22s cubic-bezier(0.22, 1, 0.36, 1); }
+    .cs-back-btn:hover { background: color-mix(in srgb, var(--cs-accent) 25%, transparent); transform: translateY(-1px); }
+    .cs-float-nav { position: fixed; top: 4.4rem; left: 50%; transform: translateX(-50%); z-index: 190; display: flex; gap: 0.3rem; padding: 0.35rem; background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-radius: 999px; box-shadow: 0 6px 24px rgba(0, 0, 0, 0.08); border: 1px solid rgba(0, 0, 0, 0.06); }
+    .cs-float-nav a { text-decoration: none; color: #6a6a6a; font-family: 'Satoshi', sans-serif; font-size: 0.72rem; font-weight: 700; padding: 0.38rem 0.65rem; border-radius: 999px; transition: background 0.2s, color 0.2s; white-space: nowrap; }
+    .cs-float-nav a:hover { background: color-mix(in srgb, var(--cs-accent) 15%, transparent); color: var(--cs-accent); }
 
     /* ── HERO ── */
     #overview {
@@ -120,6 +69,7 @@
     max-width: 250px;
     border-radius: 3px;
     object-fit: cover;
+    margin-bottom: 200px;
   }
   .hero-content {
     display: flex;
@@ -133,7 +83,7 @@
       top: 50%;
       right: -2rem;
       transform: translateY(-50%);
-      font-family: 'Noto Serif Devanagari', serif;
+      font-family: 'DM Serif Display', serif;
       font-size: clamp(10rem, 22vw, 20rem);
       color: rgba(255,255,255,0.03);
       pointer-events: none;
@@ -150,7 +100,7 @@
     }
 
     .hero-title {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: 'DM Serif Display', serif;
       font-size: clamp(2.8rem, 6vw, 5.5rem);
       font-weight: 300;
       line-height: 1.08;
@@ -164,7 +114,7 @@
       color: var(--gold);
     }
 
-    .cs-meta {
+    .cs-meta-row {
       display: flex;
       gap: 3rem;
       flex-wrap: wrap;
@@ -172,20 +122,20 @@
       border-top: 1px solid rgba(184,154,90,0.2);
     }
 
-    .cs-meta-item {
+    .cs-meta-chip {
       display: flex;
       flex-direction: column;
       gap: 0.25rem;
     }
 
-    .cs-meta-item label {
+    .cs-meta-chip label {
       font-size: 0.65rem;
       letter-spacing: 0.18em;
       text-transform: uppercase;
-      color: rgba(184,154,90,0.6);
+      color: var(--cs-accent);
     }
 
-    .cs-meta-item span {
+    .cs-meta-chip span {
       font-size: 0.85rem;
       color: rgba(250,248,244,0.75);
       font-weight: 300;
@@ -207,7 +157,7 @@
     }
 
     .section-title {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: 'DM Serif Display', serif;
       font-size: clamp(1.8rem, 3.5vw, 2.8rem);
       font-weight: 300;
       line-height: 1.15;
@@ -377,7 +327,7 @@
     }
 
     .type-example-serif {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: 'DM Serif Display', serif;
       font-size: 2rem;
       font-weight: 300;
       color: var(--olive);
@@ -385,7 +335,7 @@
     }
 
     .type-example-devanagari {
-      font-family: 'Noto Serif Devanagari', serif;
+      font-family: 'DM Serif Display', serif;
       font-size: 2rem;
       font-weight: 400;
       color: var(--olive);
@@ -446,7 +396,7 @@
     }
 
     .pull-quote p {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: 'DM Serif Display', serif;
       font-size: 1.4rem;
       font-style: italic;
       font-weight: 300;
@@ -507,36 +457,36 @@
     .live-btn:hover { background: var(--gold); }
 
     /* ── NEXT CS ── */
-    .next-cs-band {
-  background: var(--beige);
+    .cs-next {
+  background: color-mix(in srgb, var(--cs-accent) 16%, white);
   padding: 4rem 3.5rem;
 }
-.next-cs-inner {
+.cs-next-inner {
   width: min(1100px, 100%);
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
-.next-cs-label {
+.cs-next-label {
   font-size: 0.65rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--stone);
+  color: var(--cs-accent);
   margin-bottom: 0.6rem;
 }
-.next-cs-title {
-  font-family: 'Cormorant Garamond', serif;
+.cs-next-title {
+  font-family: 'DM Serif Display', serif;
   font-size: clamp(2rem, 4vw, 3rem);
   font-weight: 400;
-  color: var(--dark);
+  color: var(--cs-accent);
 }
-.next-cs-arrow {
+.cs-next-arrow {
   width: 56px;
   height: 56px;
   border-radius: 50%;
-  background: var(--gold);
-  color: var(--dark);
+  background: var(--cs-accent);
+  color: var(--cream);
   text-decoration: none;
   display: flex;
   align-items: center;
@@ -545,7 +495,7 @@
   flex-shrink: 0;
   transition: transform 0.2s, background 0.2s;
 }
-.next-cs-arrow:hover { transform: scale(1.08); background: var(--olive); color: var(--cream); }
+.cs-next-arrow:hover { transform: scale(1.08); background: color-mix(in srgb, var(--cs-accent) 82%, black); color: var(--cream); }
 
 
     /* ── FADE UP ── */
@@ -564,24 +514,23 @@
       .hero-content { padding: 4rem 0 3rem; }
       .band { padding: 4rem 1.5rem; }
       .section-wrap { padding: 4rem 0; width: 92%; }
-      .case-floating-nav { display: none; }
-      .cs-meta { gap: 1.5rem; }
+      .cs-float-nav { display: none; }
+      .cs-meta-row { gap: 1.5rem; }
       .img-grid { grid-template-columns: 1fr; }
       .live-placeholder { width: 92%; }
-      .next-cs-band { padding: 2.5rem 1.5rem; }
+      .cs-next { padding: 2.5rem 1.5rem; }
     }
   </style>
 </head>
 <body>
 
-  <!-- BACK BAR -->
-  <div class="cs-back-bar">
-    <a class="cs-back-btn" href="index.html">&#8592; Back</a>
-  </div>
-  <br>
+  <header class="cs-topbar">
+    <a href="index.html" class="cs-topbar-logo">Titixa Kamani</a>
+    <a class="cs-back-btn" href="index.html#case-studies">← Back to Work</a>
+  </header>
 
   <!-- FLOATING NAV -->
-  <nav class="case-floating-nav" aria-label="Case Study Navigation">
+  <nav class="cs-float-nav" aria-label="Case Study Navigation">
     <a href="#strategy">Brand Strategy</a>
     <a href="#identity">Visual Identity</a>
     <a href="#webdesign">Web Design</a>
@@ -602,23 +551,11 @@
         Soumya Glow.<br>
         <em>An indian herbal soap brand.</em>
       </h1>
-      <div class="cs-meta">
-        <div class="cs-meta-item">
-          <label>Timeline</label>
-          <span>6 Weeks</span>
-        </div>
-        <div class="cs-meta-item">
-          <label>My Role</label>
-          <span>Brand Strategy · Visual Identity · Web Design · Web Development</span>
-        </div>
-        <div class="cs-meta-item">
-          <label>Platform</label>
-          <span>Website · Instagram</span>
-        </div>
-        <div class="cs-meta-item">
-          <label>Tools</label>
-          <span>Figma · Canva · VS Code · Claude · Github</span>
-        </div>
+      <div class="cs-meta-row">
+        <div class="cs-meta-chip"><label>Role</label><span>Brand Strategy · Web Design</span></div>
+        <div class="cs-meta-chip"><label>Timeline</label><span>6 Weeks</span></div>
+        <div class="cs-meta-chip"><label>Tools</label><span>Figma · Canva · VS Code</span></div>
+        <div class="cs-meta-chip"><label>Platform</label><span>Website · Instagram</span></div>
       </div>
     </div>
   </div>
@@ -691,12 +628,12 @@
 
     <div class="gold-line"></div>
 
-    <p>Typography was a deliberate pairing. <strong>Cormorant Garamond</strong> for headlines elegant, literary, a little ceremonial. <strong>DM Sans</strong> for body text clean and modern so it never feels stuffy. And <strong>Noto Serif Devanagari</strong> for the Sanskrit in the logo, because if you are going to use Sanskrit, honour the script properly.</p>
+    <p>Typography was a deliberate pairing. <strong>DM Serif Display</strong> for headlines elegant, literary, a little ceremonial. <strong>Inter</strong> for body text clean and modern so it never feels stuffy. And <strong>DM Serif Display</strong> for the Sanskrit in the logo, because if you are going to use Sanskrit, honour the script properly.</p>
 
     <div class="type-sample">
       <div class="type-row">
         <span class="type-role">Display</span>
-        <span class="type-example-serif">Cormorant Garamond</span>
+        <span class="type-example-serif">DM Serif Display</span>
       </div>
       <div class="type-row">
         <span class="type-role">Logo Script</span>
@@ -704,7 +641,7 @@
       </div>
       <div class="type-row">
         <span class="type-role">Body</span>
-        <span class="type-example-sans">DM Sans for clean, legible, never gets in the way.</span>
+        <span class="type-example-sans">Inter for clean, legible, never gets in the way.</span>
       </div>
     </div>
   </div>
@@ -809,13 +746,13 @@
   </div>
 
   <!-- NEXT CASE STUDY -->
-  <div class="next-cs-band">
-    <div class="next-cs-inner">
+  <div class="cs-next">
+    <div class="cs-next-inner">
       <div>
-        <div class="next-cs-label">Next Case Study</div>
-        <div class="next-cs-title">HistARic</div>
+        <span class="cs-next-label">Next Case Study</span>
+        <span class="cs-next-title">HistARic</span>
       </div>
-      <a href="case-study-3.html" class="next-cs-arrow">&#8594;</a>
+      <a href="histaric.html" class="cs-next-arrow" aria-label="Go to HistARic">→</a>
     </div>
   </div>
 
@@ -834,13 +771,13 @@
 
     // Active nav highlight
     const sections = document.querySelectorAll('[id]');
-    const navLinks = document.querySelectorAll('.case-floating-nav a');
+    const navLinks = document.querySelectorAll('.cs-float-nav a');
 
     const navObserver = new IntersectionObserver((entries) => {
       entries.forEach(e => {
         if (e.isIntersecting) {
           navLinks.forEach(a => a.classList.remove('active'));
-          const active = document.querySelector('.case-floating-nav a[href="#' + e.target.id + '"]');
+          const active = document.querySelector('.cs-float-nav a[href="#' + e.target.id + '"]');
           if (active) active.classList.add('active');
         }
       });

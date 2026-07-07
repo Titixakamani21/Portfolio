@@ -3,19 +3,20 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Case Study 01 | Eco-Travel Aid</title>
+    <title>Case Study | Eco Travel-Aid</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="styles.css" />
   </head>
-  <body class="cv-page case-study-one-page">
+<body class="cv-page case-study-one-page" style="--cs-accent: #4A7C59; --text: #1a1a1a;">
 
-    <!-- Back Bar -->
-    <div class="cs-back-bar">
-      <a class="cs-back-btn" href="index.html#works" style="color:#000000;">&#8592; Back </a>
-    </div>
-    <nav class="case-floating-nav case-floating-glass" aria-label="Case Study Navigation">
+    <header class="cs-topbar">
+      <a href="index.html" class="cs-topbar-logo">Titixa Kamani</a>
+      <a class="cs-back-btn" href="index.html#case-studies">← Back to Work</a>
+    </header>
+    <nav class="cs-float-nav" aria-label="Case Study Navigation">
       <a href="#overview">Overview</a>
       <a href="#problem">Problem</a>
       <a href="#research">Research</a>
@@ -28,11 +29,20 @@
     <!-- Hero -->
     <div id="overview" class="cs-hero">
       <img src="eco-travel-aid-thumbnail.png?v=4" alt="Eco Travel Aid case study thumbnail" />
-      <div class="cs-meta">
-        <div class="cs-meta-item"><label>Timeline</label><span>4 Months</span></div>
-        <div class="cs-meta-item"><label>My Role</label><span>User Research, UI/UX Design, Testing</span></div>
-        <div class="cs-meta-item"><label>Platform</label><span>Mobile Application</span></div>
-        <div class="cs-meta-item"><label>Tools</label><span>Figma &#183; Miro &#183; Notion</span></div>
+      <div class="cs-meta-row" style="padding: 1.8rem 3rem; border-radius: 50px; background: rgba(74,124,89,0.06); border: 1px solid rgba(74,124,89,0.12); justify-content: center; gap: 3rem; margin-top: 2rem;">
+        <div class="cs-meta-chip" style="background: none; padding: 0; text-align: center;">
+          <label>Role</label><span>UI/UX Designer</span>
+        </div>
+        <div class="cs-meta-chip" style="background: none; padding: 0; text-align: center;">
+          <label>Timeline</label><span>4 Months</span>
+        </div>
+        <div class="cs-meta-chip" style="background: none; padding: 0; text-align: center;">
+          <label>Tools</label><span>Figma · Miro · Notion</span>
+        </div>
+        <div class="cs-meta-chip" style="background: none; padding: 0; text-align: center;">
+          <label>Platform</label><span>Mobile App</span>
+        </div>
+      </div>lass="cs-meta-chip"><label>Platform</label><span>Mobile App</span></div>
       </div>
     </div>
 
@@ -406,13 +416,13 @@
     </div>
 
     <!-- Next Case Study -->
-    <div class="next-cs-band">
-      <div class="next-cs-inner">
+    <div class="cs-next">
+      <div class="cs-next-inner">
         <div>
-          <div class="next-cs-label">Next Case Study</div>
-          <div class="next-cs-title">Clay Oven</div>
+          <span class="cs-next-label">Next Case Study</span>
+          <span class="cs-next-title">PfandBank</span>
         </div>
-        <a href="case-study-5.html" class="next-cs-arrow">&#8594;</a>
+        <a href="pfandbank.html" class="cs-next-arrow" aria-label="Go to PfandBank">→</a>
       </div>
     </div>
 
